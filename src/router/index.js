@@ -3,8 +3,6 @@ import authRouter from './auth.router'
 
 const routes = [
   ...authRouter
-
-  
 ]
 
 const router = createRouter({
