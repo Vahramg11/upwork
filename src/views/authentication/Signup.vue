@@ -138,7 +138,9 @@ import { useForm } from "vee-validate"
 import { useStore } from 'vuex'
 import { ref } from "vue";
 import * as yup from 'yup'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const store = useStore()
 const { handleSubmit, errors, defineField, resetForm } = useForm({
     validationSchema: yup.object({
@@ -147,12 +149,12 @@ const { handleSubmit, errors, defineField, resetForm } = useForm({
         username: yup.string().required(),
         email: yup.string().email().required(),
         password1: yup
-            .string().required()
-            .min(8, 'Password must be 8 characters long')
-            .matches(/[0-9]/, 'Password requires a number')
-            .matches(/[a-z]/, 'Password requires a lowercase letter')
-            .matches(/[A-Z]/, 'Password requires an uppercase letter')
-            .matches(/[^\w]/, 'Password requires a symbol').required(),
+            .string().required(),
+            // .min(8, 'Password must be 8 characters long')
+            // .matches(/[0-9]/, 'Password requires a number')
+            // .matches(/[a-z]/, 'Password requires a lowercase letter')
+            // .matches(/[A-Z]/, 'Password requires an uppercase letter')
+            // .matches(/[^\w]/, 'Password requires a symbol').required(),
         password2: yup
             .string()
             .required()
@@ -166,11 +168,12 @@ const [username, usernameAttrs] = defineField('username');
 const [email, emailAttrs] = defineField('email');
 const [password1, passwordAttrs] = defineField('password1');
 const [password2, password2Attrs] = defineField('password2');
-const role = ref("S")
+const role = ref("F")
 const onsubmit = handleSubmit((values) => {
-    values.role = role.value
+    values.user_type = role.value
     resetForm()
     store.dispatch('sign_up', values)
+    router.push({name: 'sign_in'})
 }
 )
 const change_role = (e) => {

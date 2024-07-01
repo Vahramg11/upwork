@@ -83,25 +83,30 @@
 
 <script setup>
 import { useForm } from "vee-validate"
+import { useStore } from "vuex";
+
 import * as yup from 'yup'
+const store = useStore()
 const { handleSubmit, errors, defineField, resetForm } = useForm({
     validationSchema: yup.object({
         username: yup.string().required(),
         password: yup
             .string()
-            .min(8, 'Password must be 8 characters long')
-            .matches(/[0-9]/, 'Password requires a number')
-            .matches(/[a-z]/, 'Password requires a lowercase letter')
-            .matches(/[A-Z]/, 'Password requires an uppercase letter')
-            .matches(/[^\w]/, 'Password requires a symbol').required()
+            .min(2, 'Password must be 8 characters long')
+            // .matches(/[0-9]/, 'Password requires a number')
+            // .matches(/[a-z]/, 'Password requires a lowercase letter')
+            // .matches(/[A-Z]/, 'Password requires an uppercase letter')
+            // .matches(/[^\w]/, 'Password requires a symbol')
+            .required()
     })
 
 });
 const onsumbit = handleSubmit(values => {
-    console.log(values);
-    resetForm()
+    store.dispatch("sign_in", values)
+    // resetForm()
+    resetForm
 })
 
 const [username, usernameAttrs] = defineField('username');
 const [password, passwordAttrs] = defineField('password');
-</script>
+</script>s

@@ -350,7 +350,6 @@ export default {
                 "email": "alice.johnson@example.com",
                 "phone": "+1 (123) 456-7890",
                 "image": "https://randomuser.me/api/portraits/women/1.jpg",
-                "country": "USA",
 
 
             },
@@ -370,7 +369,6 @@ export default {
                 "last_name": "Williams",
                 "email": "carol.williams@example.com",
                 "phone": "+1 (345) 678-9012",
-                "country": "USA",
                 "image": "https://randomuser.me/api/portraits/women/3.jpg",
   
             },
@@ -380,7 +378,6 @@ export default {
                 "last_name": "Brown",
                 "email": "david.brown@example.com",
                 "phone": "+1 (456) 789-0123",
-                "country": "USA",
                 "image": "https://randomuser.me/api/portraits/men/4.jpg",
             },
             {
@@ -389,7 +386,6 @@ export default {
                 "last_name": "Davis",
                 "email": "emma.davis@example.com",
                 "phone": "+1 (567) 890-1234",
-                "country": "USA",
                 "image": "https://randomuser.me/api/portraits/women/5.jpg",
             }
         ]
