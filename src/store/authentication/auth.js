@@ -31,7 +31,7 @@ export default {
                     secure: true,
                     sameSite: 'Strict',
                 });
-                VueCookies.set('access', data.access, "10m", {
+                VueCookies.set('access', data.access, "60m", {
                     secure: true,
                     sameSite: 'Strict',
                 });
@@ -48,6 +48,9 @@ export default {
             }
             const { data } = await Axios.post("log_out/", { "refresh": VueCookies.get("refresh") }, config)
             console.log(data);
+            VueCookies.remove("access")
+            VueCookies.remove("refresh")
+            router.push("/")
         },
 
         async get_user({ commit }) {
@@ -61,7 +64,6 @@ export default {
             console.log(user.data);
             switch(user.data.user_type){
                 case "freelancer":
-                    alert()
                     router.push("/freelancer")
                     break
                 case "admin":

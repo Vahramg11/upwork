@@ -150,11 +150,11 @@ const { handleSubmit, errors, defineField, resetForm } = useForm({
         email: yup.string().email().required(),
         password1: yup
             .string().required(),
-            // .min(8, 'Password must be 8 characters long')
-            // .matches(/[0-9]/, 'Password requires a number')
-            // .matches(/[a-z]/, 'Password requires a lowercase letter')
-            // .matches(/[A-Z]/, 'Password requires an uppercase letter')
-            // .matches(/[^\w]/, 'Password requires a symbol').required(),
+        // .min(8, 'Password must be 8 characters long')
+        // .matches(/[0-9]/, 'Password requires a number')
+        // .matches(/[a-z]/, 'Password requires a lowercase letter')
+        // .matches(/[A-Z]/, 'Password requires an uppercase letter')
+        // .matches(/[^\w]/, 'Password requires a symbol').required(),
         password2: yup
             .string()
             .required()
@@ -173,7 +173,7 @@ const onsubmit = handleSubmit((values) => {
     values.user_type = role.value
     resetForm()
     store.dispatch('sign_up', values)
-    router.push({name: 'sign_in'})
+    router.push({ name: 'sign_in' })
 }
 )
 const change_role = (e) => {
