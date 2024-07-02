@@ -51,5 +51,7 @@ urlpatterns = [
     path('api/token/blacklist/', TokenBlacklistView.as_view(), name='token_blacklist'),
     path("", include("forauth.urls")),
     path("", include("adminka.urls")),
+    path("", include("job.urls")),
+    path("", include("freelacner.urls")),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

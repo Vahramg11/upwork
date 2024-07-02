@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'forauth',
     "adminka",
     "customer",
-    "freelancer"
+    "freelancer",
+    "job"
 ]
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
