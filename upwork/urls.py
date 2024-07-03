@@ -52,6 +52,6 @@ urlpatterns = [
     path("", include("forauth.urls")),
     path("", include("adminka.urls")),
     path("", include("job.urls")),
-    path("", include("freelacner.urls")),
+    path("", include("freelancer.urls")),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

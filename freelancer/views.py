@@ -1,3 +1,4 @@
+from django.db.models import Prefetch, OuterRef
 from django.shortcuts import render
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
@@ -5,7 +6,8 @@ from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 
 from .models import Freelancer
-from .serializers import FreelancerSerializer
+from .serializers import FreelancerSerializer, FreelancerDetails
+from job.models import Job
 
 
 # Create your views here.
@@ -21,7 +23,19 @@ class FreelancerStaff(viewsets.ViewSet):
 
     @action(methods=["GET"], detail=True)
     def get_one_freelancer(self, request, pk):
-        # one_freelancer = Freelancer.objects.get(id=pk)
-        # data_serial = FreelancerSerializer(instance=one_freelancer)
-        # print(data_serial.data)
-        return Response("data_serial.data", status=status.HTTP_200_OK)
+        one_freelancer = Freelancer.objects.prefetch_related(
+            Prefetch('job', queryset=Job.objects.all()),
+        ).get(id=pk)
+        data_serial = FreelancerDetails(instance=one_freelancer)
+        print(data_serial.data)
+        return Response(data_serial.data, status=status.HTTP_200_OK)
+
+    @action(methods=["PATCH"], detail=True)
+    def change_freelancer_info(self, reqeust):
+        try:
+            if reqeust.data:
+                pass
+        finally:
+            pass
+
+
