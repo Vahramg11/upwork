@@ -1,42 +1,37 @@
 <template>
-    <div class="container mx-auto px-4 py-8">
-
+    <div class="mx-auto px-5 py-4 bg-[#eaf6f6] w-full sm:px-20">
+        <!-- {{ freelancer }} -->
         <!-- Profile Card -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div class="md:col-span-1">
                 <div class="bg-white p-4 rounded-lg shadow">
                     <div class="flex flex-col items-center text-center">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin"
-                            class="rounded-full h-32 w-32 object-cover">
+                        <img :src="'http://127.0.0.1:8000' + freelancer.photo" class="rounded-full h-32 w-32 object-cover">
                         <div class="mt-4">
-                            <h4 class="text-xl font-bold">John Doe</h4>
-                            <p class="text-gray-500 mb-1">Full Stack Developer</p>
-                            <p class="text-gray-500">Bay Area, San Francisco, CA</p>
+                            <h4 class="text-xl font-bold">{{ freelancer.username }}</h4>
+                            <p class="text-gray-500 mb-1">{{ freelancer.profession }}</p>
+
                             <div class="mt-4 space-x-2">
-                                <button class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow">Follow</button>
+                                <!-- <button class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow">Follow</button> -->
                                 <button
-                                    class="border border-blue-500 text-blue-500 px-4 py-2 rounded-lg shadow">Message</button>
+                                    class="border border-[#3813db] text-[#3813db] px-4 py-2 rounded-lg shadow">Message</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Social Links -->
-                <div class="grid grid-cols-4 gap-1 p-5">
-                    <!-- Column 1 -->
-                    <div class="bg-blue-500 text-white p-2 text-center rounded-3xl shadow-lg mb-4 border-green-600 border-3 ">S1</div>
-                    <div class="bg-green-500 text-white p-2 text-center rounded-3xl shadow-lg mb-4">S2</div>
-                    <div class="bg-yellow-500 text-white p-2 text-center rounded-3xl shadow-lg mb-4 col-span-2">S3</div>
+                <div class="bg-white p-4 rounded-lg shadow mt-4">
+                    <h1 class="text-start mb-3 font-bold">Skills</h1>
+                    <div class="flex flex-wrap gap-2">
+                        <div v-for="skill in freelancer.skills" :key="skill.id"
+                            class="text-black p-2 text-center rounded-lg text-sm  shadow-lg mb-4"
+                            :style="{ 'border': `1px solid ${random_color()}` }">
+                            {{ skill.name }}
 
-                    <!-- Column 2 -->
-                    <div class="bg-purple-500 text-white p-2 text-center rounded-3xl shadow-lg mb-4 col-span-3">S5</div>
-                    <div class="bg-indigo-500 text-white p-2 text-center rounded-3xl shadow-lg mb-4 col-span-2">S6</div>
+                        </div>
 
-                    <div class="bg-red-500 text-white p-2 text-center rounded-3xl shadow-lg mb-4">S4</div>
-                    <!-- Column 3 -->
-                    <div class="bg-pink-500 text-white p-2 text-center rounded-3xl shadow-lg mb-4">S7</div>
-                    <div class="bg-orange-500 text-white p-2 text-center rounded-3xl shadow-lg mb-4">S8</div>
-
+                    </div>
 
                 </div>
             </div>
@@ -46,27 +41,45 @@
                 <div class="bg-white p-4 rounded-lg shadow mb-4">
                     <div class="flex items-center mb-3">
                         <h6 class="text-sm font-semibold mr-2">First Name</h6>
-                        <span class="text-gray-600">Kenneth</span>
+                        <contenteditable tag="span" class="text-gray-600" :contenteditable="true"
+                            v-model="chuchel.first_name" :no-nl="true" :no-html="true">{{
+                                freelancer.first_name }}</contenteditable>
                     </div>
                     <hr>
                     <div class="flex items-center mb-3">
                         <h6 class="text-sm font-semibold mr-2">Last Name</h6>
-                        <span class="text-gray-600">Kenneth</span>
+                        <contenteditable tag="span" class="text-gray-600" :contenteditable="true"
+                            v-model="chuchel.last_name" :no-nl="true" :no-html="true">{{
+                                freelancer.last_name }}</contenteditable>
                     </div>
                     <hr class="my-2">
                     <div class="flex items-center mb-3">
                         <h6 class="text-sm font-semibold mr-2">Email</h6>
-                        <span class="text-gray-600">fip@jukmuh.al</span>
+                        <contenteditable tag="span" class="text-gray-600" :contenteditable="true" v-model="chuchel.email"
+                            :no-nl="true" :no-html="true">{{
+                                freelancer.email }}</contenteditable>
                     </div>
                     <hr class="my-2">
-                    <div class="flex items-center mb-3">
-                        <h6 class="text-sm font-semibold mr-2">Phone</h6>
-                        <span class="text-gray-600">(239) 816-9029</span>
+                    <div v-if="freelancer.summary" class="flex items-start mb-3 flex-col ">
+                        <h6 class="text-sm font-semibold mr-2">summary</h6>
+                        <contenteditable tag="span" class="text-gray-600" :contenteditable="true" v-model="chuchel.summary"
+                            :no-nl="true" :no-html="true">{{
+                                freelancer.summary }}</contenteditable>
+                    </div>
+                    <hr class="my-2">
+                    <div v-if="freelancer.salary" class="flex items-start mb-3 flex-col ">
+                        <h6 class="text-sm font-semibold mr-2">salary</h6>
+                        <div>
+                            <contenteditable tag="span" class="text-gray-600" :contenteditable="true"
+                                v-model="chuchel.salary" :no-nl="true" :no-html="true">{{
+                                    freelancer.salary }}</contenteditable><span>$</span>
+                        </div>
                     </div>
                     <hr class="my-2">
                     <hr class="my-2">
                     <div class="mt-4 flex">
-                        <button class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow">Edit</button>
+                        <button @click="changeUserInfo()"
+                            class="bg-[#3813db] text-white px-4 py-2 rounded-lg shadow">Edit</button>
                     </div>
                 </div>
 
@@ -82,49 +95,14 @@
                             </svg>
                             Project Status
                         </h6>
-                        <div class="flex items-center mb-3">
-                            <small class="text-gray-600">Web Design</small>
+                        <div v-for="proj in  freelancer.job " :key="proj.id"
+                            class="  flex items-center mb-3 h-10  sm:h-8 rounded-md border p-3" :class="{
+                                'border-[#ff4057] bg-[#ff405738]': proj.process == 'Start', 'border-[#1bf5af] bg-[#1bf5b038]': proj.process == 'Done'
+                                , 'border-[#0e7cf4] bg-[#0e7cf438]': proj.process == 'Process'
+                            }">
+                            <p class="text-gray-600 text-xs sm:text-sm">{{ proj.name }}</p>
                             <div class="flex items-center ml-auto">
-                                <div class="bg-blue-500 h-2 w-64 rounded-full">
-                                    <div class="h-2 bg-primary rounded-full" style="width: 80%;"></div>
-                                </div>
-                                <span class="text-gray-600 ml-2">80%</span>
-                            </div>
-                        </div>
-                        <div class="flex items-center mb-3">
-                            <small class="text-gray-600">Website Markup</small>
-                            <div class="flex items-center ml-auto">
-                                <div class="bg-blue-500 h-2 w-64 rounded-full">
-                                    <div class="h-2 bg-primary rounded-full" style="width: 72%;"></div>
-                                </div>
-                                <span class="text-gray-600 ml-2">72%</span>
-                            </div>
-                        </div>
-                        <div class="flex items-center mb-3">
-                            <small class="text-gray-600">One Page</small>
-                            <div class="flex items-center ml-auto">
-                                <div class="bg-blue-500 h-2 w-64 rounded-full">
-                                    <div class="h-2 bg-primary rounded-full" style="width: 89%;"></div>
-                                </div>
-                                <span class="text-gray-600 ml-2">89%</span>
-                            </div>
-                        </div>
-                        <div class="flex items-center mb-3">
-                            <small class="text-gray-600">Mobile Template</small>
-                            <div class="flex items-center ml-auto">
-                                <div class="bg-blue-500 h-2 w-64 rounded-full">
-                                    <div class="h-2 bg-primary rounded-full" style="width: 55%;"></div>
-                                </div>
-                                <span class="text-gray-600 ml-2">55%</span>
-                            </div>
-                        </div>
-                        <div class="flex items-center">
-                            <small class="text-gray-600">Backend API</small>
-                            <div class="flex items-center ml-auto">
-                                <div class="bg-blue-500 h-2 w-64 rounded-full">
-                                    <div class="h-2 bg-primary rounded-full" style="width: 66%;"></div>
-                                </div>
-                                <span class="text-gray-600 ml-2">66%</span>
+                                <span class="text-gray-600 ml-2 text-xs sm:text-sm">{{ proj.process }}</span>
                             </div>
                         </div>
                     </div>
@@ -134,3 +112,38 @@
         </div>
     </div>
 </template>
+
+<script setup>
+import { computed } from 'vue';
+import { useStore } from 'vuex';
+import contenteditable from 'vue-contenteditable'
+
+const store = useStore()
+
+const colors = ["#070f4e", "#a55233", "#17b794", "#5c5470", "#f96d00", "#ff007b", "#400082", "#ff0000", "#00aaa0", "#efd510"]
+const random_color = () => {
+    return colors[Math.floor(Math.random() * colors.length)]
+}
+const freelancer = computed(() => store.state.admin.one_freelancer)
+const chuchel = {
+    ...freelancer
+    // stex partadir shallow copy (hamematman jamanak mez petqa menak parz arjeqnery havasar chlinen)
+}
+const changeUserInfo = () => {
+    console.log(JSON.stringify(freelancer.value) == JSON.stringify(chuchel));
+    if (!(JSON.stringify(freelancer.value) == JSON.stringify(chuchel))) {
+        store.commit("admin/change_one_freelancer", freelancer)
+        let changedFields = {};
+        for (let key in freelancer.value) {
+            if (freelancer.value[key] !== chuchel[key]) {
+                changedFields[key] = chuchel[key];
+            }
+        }
+        console.log(changedFields);
+        // store.dispatch("change_info", chuchel)
+    }
+}
+</script>
+
+
+

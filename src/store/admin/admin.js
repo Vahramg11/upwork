@@ -1,10 +1,10 @@
 import VueCookies from 'vue-cookies';
 import axios from 'axios';
+import router from '@/router';
 const Axios = axios.create({
   baseURL: 'http://127.0.0.1:8000/',
 });
 Axios.interceptors.request.use((config) => {
-  console.log("this is config", config);
   const token = VueCookies.get("access");
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
@@ -16,91 +16,7 @@ Axios.interceptors.request.use((config) => {
 export default {
   namespaced: true,
   state: {
-    data: {
-      skills: [
-        {
-          "id": 1,
-          "skill": "JavaScript"
-        },
-        {
-          "id": 2,
-          "skill": "Python"
-        },
-        {
-          "id": 3,
-          "skill": "Java"
-        },
-        {
-          "id": 4,
-          "skill": "C#"
-        },
-        {
-          "id": 5,
-          "skill": "C++"
-        },
-        {
-          "id": 6,
-          "skill": "Ruby"
-        },
-        {
-          "id": 7,
-          "skill": "PHP"
-        },
-        {
-          "id": 8,
-          "skill": "Swift"
-        },
-        {
-          "id": 9,
-          "skill": "Go"
-        },
-        {
-          "id": 10,
-          "skill": "Kotlin"
-        },
-        {
-          "id": 11,
-          "skill": "TypeScript"
-        },
-        {
-          "id": 12,
-          "skill": "SQL"
-        },
-        {
-          "id": 13,
-          "skill": "R"
-        },
-        {
-          "id": 14,
-          "skill": "HTML & CSS"
-        },
-        {
-          "id": 15,
-          "skill": "Rust"
-        },
-        {
-          "id": 16,
-          "skill": "Scala"
-        },
-        {
-          "id": 17,
-          "skill": "Dart"
-        },
-        {
-          "id": 18,
-          "skill": "Shell Scripting"
-        },
-        {
-          "id": 19,
-          "skill": "MATLAB"
-        },
-        {
-          "id": 20,
-          "skill": "Objective-C"
-        }
-      ],
-      freelancers: []
-    },
+    
     jobs: [
       {
         "id": 1,
@@ -360,24 +276,27 @@ export default {
         "phone": "+1 (567) 890-1234",
         "image": "https://randomuser.me/api/portraits/women/5.jpg",
       }
-    ]
+    ],
+    skills: [],
+    freelancers: [],
+    one_freelancer:null
 
 
   },
   getters: {
     get_freelancers(state) {
-      return state.data.freelancers
+      console.log(state);
+      return state.freelancers
     },
     get_customers(state) {
-      return state.data.customers
+      return state.customers
     },
     get_jobs(state) {
-      return state.data.jobs
-    }
+      return state.jobs
+    },
   },
   actions: {
     async req_freelancers({commit}) {
-
       const  {data}  = await Axios.get("freelancers/")
       console.log(data);
       commit("change_freelancers", data)
@@ -385,13 +304,23 @@ export default {
 
     async get_one_freelancer({commit}, id){
       const {data} = await Axios.get(`freelancer/${id}/`)
-      console.log("developer", data);
-      commit
+      commit("change_one_freelancer", data)
+      router.push(`/freelancer/${data.username}`)
+    },
+
+    async change_info(_, obj){
+      const {data} = Axios.patch(`change_info/freelancer/${obj.id}`)
+      console.log(data);
+
     }
   },
   mutations: {
     change_freelancers(state, new_value){
-      state.data.freelancers = new_value
+      state.freelancers = new_value
+    },
+    change_one_freelancer(state, new_value){
+      console.log(state.one_freelancer, "vs", new_value);
+      state.one_freelancer = new_value  
     }
   }
 }

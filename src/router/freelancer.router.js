@@ -1,7 +1,7 @@
 import FreelancerPage from "@/views/freelancer/FreelancerPage.vue"
 export default [
     {
-        path: "/freelancer",
+        path: "/freelancer/:name/",
         name: "freelancer",
         component: FreelancerPage
     }

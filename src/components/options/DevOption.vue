@@ -30,10 +30,10 @@
         
         <!-- Buttons -->
         <div class="flex justify-between mt-4 gap-5">
-          <button @click="get_one(dev.id)" class="flex-1 rounded-lg bg-[#4756ca] text-white font-semibold hover:bg-[#371f9e] px-6 py-2">
+          <button @click="get_one(dev.id)" class="flex-1 rounded-lg bg-[#371f9e] text-white font-semibold hover:bg-[#4756ca] px-6 py-2">
             Info
           </button>
-          <button class="flex-1 rounded-lg bg-[#f76b8a] text-white font-semibold hover:bg-[#f8223b] px-6 py-2">
+          <button class="flex-1 rounded-lg bg-[#f8223b] text-white font-semibold hover:bg-[#f76b8a] px-6 py-2">
             Delete
           </button>
         </div>
@@ -51,6 +51,7 @@ const devs = computed(() => store.getters["admin/get_freelancers"])
 
 const get_one = (id)=>{
     store.dispatch("admin/get_one_freelancer", id)
+
 }
 
 onMounted(() => {
