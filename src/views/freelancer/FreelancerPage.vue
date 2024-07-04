@@ -1,7 +1,9 @@
 <template>
-    <div class="mx-auto px-5 py-4 bg-[#eaf6f6] w-full sm:px-20">
-        <!-- {{ freelancer }} -->
-        <!-- Profile Card -->
+    <div v-if="freelancer">
+        {{ freelancer.first_name }}
+
+    </div>
+    <div v-if="freelancer" class="mx-auto px-5 py-4 bg-[#eaf6f6] w-full sm:px-20">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div class="md:col-span-1">
                 <div class="bg-white p-4 rounded-lg shadow">
@@ -12,7 +14,6 @@
                             <p class="text-gray-500 mb-1">{{ freelancer.profession }}</p>
 
                             <div class="mt-4 space-x-2">
-                                <!-- <button class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow">Follow</button> -->
                                 <button
                                     class="border border-[#3813db] text-[#3813db] px-4 py-2 rounded-lg shadow">Message</button>
                             </div>
@@ -20,7 +21,6 @@
                     </div>
                 </div>
 
-                <!-- Social Links -->
                 <div class="bg-white p-4 rounded-lg shadow mt-4">
                     <h1 class="text-start mb-3 font-bold">Skills</h1>
                     <div class="flex flex-wrap gap-2">
@@ -36,54 +36,51 @@
                 </div>
             </div>
 
-            <!-- Profile Details -->
             <div class="md:col-span-2">
                 <div class="bg-white p-4 rounded-lg shadow mb-4">
                     <div class="flex items-center mb-3">
                         <h6 class="text-sm font-semibold mr-2">First Name</h6>
-                        <contenteditable tag="span" class="text-gray-600" :contenteditable="true"
-                            v-model="chuchel.first_name" :no-nl="true" :no-html="true">{{
-                                freelancer.first_name }}</contenteditable>
+                        <span :contenteditable="true" @blur="change_values('first_name', $event.target.innerText)">{{
+                            freelancer.first_name }}</span>
+
                     </div>
                     <hr>
                     <div class="flex items-center mb-3">
                         <h6 class="text-sm font-semibold mr-2">Last Name</h6>
-                        <contenteditable tag="span" class="text-gray-600" :contenteditable="true"
-                            v-model="chuchel.last_name" :no-nl="true" :no-html="true">{{
-                                freelancer.last_name }}</contenteditable>
+                        <span :contenteditable="true" @blur="change_values('last_name', $event.target.innerText)">{{
+                            freelancer.last_name }}</span>
+
                     </div>
                     <hr class="my-2">
                     <div class="flex items-center mb-3">
                         <h6 class="text-sm font-semibold mr-2">Email</h6>
-                        <contenteditable tag="span" class="text-gray-600" :contenteditable="true" v-model="chuchel.email"
-                            :no-nl="true" :no-html="true">{{
-                                freelancer.email }}</contenteditable>
+                        <span :contenteditable="true" @blur="change_values('email', $event.target.innerText)">{{
+                            freelancer.email }}</span>
                     </div>
                     <hr class="my-2">
                     <div v-if="freelancer.summary" class="flex items-start mb-3 flex-col ">
                         <h6 class="text-sm font-semibold mr-2">summary</h6>
-                        <contenteditable tag="span" class="text-gray-600" :contenteditable="true" v-model="chuchel.summary"
-                            :no-nl="true" :no-html="true">{{
-                                freelancer.summary }}</contenteditable>
+                        <span @blur="change_values('summary', $event.target.innerText)" :contenteditable="true"
+                            class="text-left p-2"> {{ freelancer.summary }}</span>
+
                     </div>
-                    <hr class="my-2">
-                    <div v-if="freelancer.salary" class="flex items-start mb-3 flex-col ">
+                    <hr class="my-2" v-if="freelancer.salary">
+                    <div v-if="freelancer.salary" class="flex items-start mb-3 ">
                         <h6 class="text-sm font-semibold mr-2">salary</h6>
-                        <div>
-                            <contenteditable tag="span" class="text-gray-600" :contenteditable="true"
-                                v-model="chuchel.salary" :no-nl="true" :no-html="true">{{
-                                    freelancer.salary }}</contenteditable><span>$</span>
-                        </div>
+                        <span>
+                            <span :contenteditable="true" @blur="change_values('salary', $event.target.innerText)">{{
+                                freelancer.salary }}</span>
+                            $
+                        </span>
+
+                        <hr class="my-2">
+                        <hr class="my-2">
                     </div>
-                    <hr class="my-2">
-                    <hr class="my-2">
                     <div class="mt-4 flex">
-                        <button @click="changeUserInfo()"
-                            class="bg-[#3813db] text-white px-4 py-2 rounded-lg shadow">Edit</button>
+                        <button @click="edit" class="bg-[#3813db] text-white px-4 py-2 rounded-lg shadow">Edit</button>
                     </div>
                 </div>
 
-                <!-- Project Status -->
                 <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
                     <div class="bg-white p-4 rounded-lg shadow">
                         <h6 class="flex items-center mb-3 text-info"><svg xmlns="http://www.w3.org/2000/svg"
@@ -114,35 +111,51 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
-import contenteditable from 'vue-contenteditable'
-
+import { useRoute } from 'vue-router';
+import * as Yup from 'yup';
 const store = useStore()
-
 const colors = ["#070f4e", "#a55233", "#17b794", "#5c5470", "#f96d00", "#ff007b", "#400082", "#ff0000", "#00aaa0", "#efd510"]
 const random_color = () => {
     return colors[Math.floor(Math.random() * colors.length)]
 }
-const freelancer = computed(() => store.state.admin.one_freelancer)
-const chuchel = {
-    ...freelancer
-    // stex partadir shallow copy (hamematman jamanak mez petqa menak parz arjeqnery havasar chlinen)
-}
-const changeUserInfo = () => {
-    console.log(JSON.stringify(freelancer.value) == JSON.stringify(chuchel));
-    if (!(JSON.stringify(freelancer.value) == JSON.stringify(chuchel))) {
-        store.commit("admin/change_one_freelancer", freelancer)
-        let changedFields = {};
-        for (let key in freelancer.value) {
-            if (freelancer.value[key] !== chuchel[key]) {
-                changedFields[key] = chuchel[key];
-            }
-        }
-        console.log(changedFields);
-        // store.dispatch("change_info", chuchel)
+const router = useRoute().params
+
+onMounted(() => {
+    store.dispatch("admin/get_one_freelancer", router.username)
+})
+const freelancer = computed(() => store.getters["admin/get_one_freelancer"])
+const values = {}
+
+const change_values = (field, value) => {
+    value = value.trim()
+    if (value) {
+        values[field] = value
+        console.log(field, value);
     }
 }
+
+const scheam = Yup.object({
+    first_name: Yup.string().optional().nullable(),
+    last_name: Yup.string().optional().nullable(),
+    email: Yup.string().email().optional().nullable()
+})
+
+const edit = () => {
+    scheam.validate(values).then(r => {
+        if(Object.keys(r)){
+            r.id = freelancer.value?.id
+            // store.dispatch("admin/change_info")
+            console.log(r);
+        }
+    }).catch(r => {
+        alert(r)
+    })
+
+}
+
+
 </script>
 
 

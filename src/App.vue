@@ -1,6 +1,6 @@
 <template>
   <nav class="flex justify-center gap-10">
-    <router-link to="/sign_up">sign_up </router-link>
+    <router-link to="/admin">admin </router-link>
     <router-link to="/"> sign_in</router-link>
 
     <div class="relative inline-flex  group">

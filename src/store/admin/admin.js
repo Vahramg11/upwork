@@ -294,6 +294,9 @@ export default {
     get_jobs(state) {
       return state.jobs
     },
+    get_one_freelancer(state){
+      return state.one_freelancer
+    }
   },
   actions: {
     async req_freelancers({commit}) {
@@ -302,16 +305,15 @@ export default {
       commit("change_freelancers", data)
     },
 
-    async get_one_freelancer({commit}, id){
-      const {data} = await Axios.get(`freelancer/${id}/`)
+    async get_one_freelancer({commit}, username){
+      const {data} = await Axios.get(`freelancer/${username}/`)
       commit("change_one_freelancer", data)
       router.push(`/freelancer/${data.username}`)
     },
 
     async change_info(_, obj){
-      const {data} = Axios.patch(`change_info/freelancer/${obj.id}`)
-      console.log(data);
-
+      const {data} = await Axios.patch(`change_info/freelancer/${obj.id}/`, obj)
+      console.log(data, "changeinfoadmin");
     }
   },
   mutations: {
@@ -319,8 +321,8 @@ export default {
       state.freelancers = new_value
     },
     change_one_freelancer(state, new_value){
-      console.log(state.one_freelancer, "vs", new_value);
       state.one_freelancer = new_value  
+      console.log("change_one_freelancer", state.one_freelancer);
     }
   }
 }
