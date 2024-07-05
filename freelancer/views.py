@@ -31,9 +31,8 @@ class FreelancerStaff(viewsets.ViewSet):
         return Response(data_serial.data, status=status.HTTP_200_OK)
 
     @action(methods=["PATCH"], detail=True)
-    def change_freelancer_info(self, request, username):
-        freelancer = get_object_or_404(Freelancer, username=username)
-        print(freelancer)
+    def change_freelancer_info(self, request, pk):
+        freelancer = get_object_or_404(Freelancer, id=pk)
         try:
             if request.data:
                 check = ChangeFreelancerInfo(freelancer, data=request.data)
