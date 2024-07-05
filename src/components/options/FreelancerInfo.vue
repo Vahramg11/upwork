@@ -1,14 +1,28 @@
 <template>
-    <div v-if="freelancer">
-        {{ freelancer.first_name }}
-
-    </div>
-    <div v-if="freelancer" class="mx-auto px-5 py-4 bg-[#eaf6f6] w-full sm:px-20">
+    <div v-if="freelancer"
+        class="mx-auto px-10 py-4  sm:px-20 content ml-12 transform ease-in-out duration-500 md:px-5 pb-4">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div class="md:col-span-1">
                 <div class="bg-white p-4 rounded-lg shadow">
                     <div class="flex flex-col items-center text-center">
-                        <img :src="'http://127.0.0.1:8000' + freelancer.photo" class="rounded-full h-32 w-32 object-cover">
+                        <div class="relative">
+                            <img :src="'http://127.0.0.1:8000' + freelancer.photo"
+                                class="rounded-full h-32 w-32 object-cover relative">
+                            <div class="relative">
+                                <!-- File Input Button -->
+                                <label
+                                    class="p-1 bg-[#45454538] rounded-full hover:bg-[#494848aa] active:shadow-lg mouse shadow transition ease-in duration-200 focus:outline-none absolute right-3 bottom-0 cursor-pointer">
+                                    <input type="file" class="hidden" @change="handleFileUpload">
+                                    <svg viewBox="0 0 20 20" enable-background="new 0 0 20 20" class="w-6 h-6 inline-block">
+                                        <path fill="#FFFFFF" d="M16,10c0,0.553-0.048,1-0.601,1H11v4.399C11,15.951,10.553,16,10,16c-0.553,0-1-0.049-1-0.601V11H4.601
+          C4.049,11,4,10.553,4,10c0-0.553,0.049-1,0.601-1H9V4.601C9,4.048,9.447,4,10,4c0.553,0,1,0.048,1,0.601V9h4.399
+          C15.952,9,16,9.447,16,10z" />
+                                    </svg>
+                                </label>
+                            </div>
+                        </div>
+
+
                         <div class="mt-4">
                             <h4 class="text-xl font-bold">{{ freelancer.username }}</h4>
                             <p class="text-gray-500 mb-1">{{ freelancer.profession }}</p>
@@ -94,8 +108,8 @@
                         </h6>
                         <div v-for="proj in  freelancer.job " :key="proj.id"
                             class="  flex items-center mb-3 h-10  sm:h-8 rounded-md border p-3" :class="{
-                                'border-[#ff4057] bg-[#ff405738]': proj.process == 'Start', 'border-[#1bf5af] bg-[#1bf5b038]': proj.process == 'Done'
-                                , 'border-[#0e7cf4] bg-[#0e7cf438]': proj.process == 'Process'
+                                'border-[#ff4057] bg-[#EC489938]': proj.process == 'Start', 'border-[#1bf5af] bg-[#1bf5b038]': proj.process == 'Done'
+                                , 'border-[#493bdb] bg-[#6E63F238]': proj.process == 'Process'
                             }">
                             <p class="text-gray-600 text-xs sm:text-sm">{{ proj.name }}</p>
                             <div class="flex items-center ml-auto">
@@ -111,9 +125,10 @@
 </template>
 
 <script setup>
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
 import { useRoute } from 'vue-router';
+import Swal from 'sweetalert2';
 import * as Yup from 'yup';
 const store = useStore()
 const colors = ["#070f4e", "#a55233", "#17b794", "#5c5470", "#f96d00", "#ff007b", "#400082", "#ff0000", "#00aaa0", "#efd510"]
@@ -127,6 +142,7 @@ onMounted(() => {
 })
 const freelancer = computed(() => store.getters["admin/get_one_freelancer"])
 const values = {}
+const confirmed = ref(false)
 
 const change_values = (field, value) => {
     value = value.trim()
@@ -144,19 +160,52 @@ const scheam = Yup.object({
 
 const edit = () => {
     scheam.validate(values).then(r => {
-        if(Object.keys(r)){
+        if (Object.keys(r).length) {
+            console.log(r, Object.keys(r));
             r.id = freelancer.value?.id
-            // store.dispatch("admin/change_info")
-            console.log(r);
+            store.dispatch("admin/change_info", r)
+            confirmed.value = true
+            Swal.fire({
+                title: 'Success!',
+                text: 'successfully changed',
+                icon: 'success',
+                // confirmButtonText: 'close',
+                html: '<i class="fas fa-check-circle text-green-500 text-6xl"></i>',
+                customClass: {
+                    popup: 'bg-white border border-gray-300 shadow-lg rounded-lg',
+                    title: 'text-gray-800 font-bold',
+                    content: 'text-gray-600',
+                    // confirmButton: 'bg-gradient-to-r from-green-400 to-blue-500 text-white font-bold py-2 px-4 rounded hover:from-green-500 hover:to-blue-600 transition duration-300',
+                },
+                showClass: {
+                    popup: 'animate__animated animate__fadeInDown',
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp',
+                },
+                timer: 2000,
+                timerProgressBar: true,
+                showConfirmButton: false,
+            });
         }
     }).catch(r => {
-        alert(r)
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: `Something went wrong! ${r.message}`,
+            timer: 5000,
+            timerProgressBar: true,
+        });
     })
 
 }
+
 
 
 </script>
 
 
 
+<style>
+@import "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css";
+</style>

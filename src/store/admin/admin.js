@@ -1,6 +1,6 @@
 import VueCookies from 'vue-cookies';
 import axios from 'axios';
-import router from '@/router';
+// import router from '@/router';
 const Axios = axios.create({
   baseURL: 'http://127.0.0.1:8000/',
 });
@@ -308,7 +308,7 @@ export default {
     async get_one_freelancer({commit}, username){
       const {data} = await Axios.get(`freelancer/${username}/`)
       commit("change_one_freelancer", data)
-      router.push(`/freelancer/${data.username}`)
+      // router.push(`/freelancer/${data.username}`)
     },
 
     async change_info(_, obj){
