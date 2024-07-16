@@ -1,12 +1,13 @@
 <template>
-    <div v-if="freelancer"
-        class="mx-auto px-10 py-4  sm:px-20 content ml-12 transform ease-in-out duration-500 md:px-5 pb-4">
+
+    
+    <div v-if="customer" class="mx-auto px-10 py-4  sm:px-20 content ml-12 transform ease-in-out duration-500 md:px-5 pb-4">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div class="md:col-span-1">
                 <div class="bg-white p-4 rounded-lg shadow">
                     <div class="flex flex-col items-center text-center">
                         <div class="relative">
-                            <img :src="'http://127.0.0.1:8000' + freelancer.photo"
+                            <img :src="'http://127.0.0.1:8000' + customer.photo"
                                 class="rounded-full h-32 w-32 object-cover relative">
                             <div class="relative">
                                 <!-- File Input Button -->
@@ -24,8 +25,7 @@
 
 
                         <div class="mt-4">
-                            <h4 class="text-xl font-bold">{{ freelancer.username }}</h4>
-                            <p class="text-gray-500 mb-1">{{ freelancer.profession }}</p>
+                            <h4 class="text-xl font-bold">{{ customer.username }}</h4>
 
                             <div class="mt-4 space-x-2">
                                 <button
@@ -35,30 +35,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white p-4 rounded-lg shadow mt-4">
-                    <h1 class="text-start mb-3 font-bold">Skills</h1>
-                    <div class="flex flex-wrap gap-2">
-                        <div v-for="skill in freelancer.skills" :key="skill.id"
-                            class="text-black p-2 text-center rounded-lg text-sm  shadow-lg mb-4"
-                            :style="{ 'border': `1px solid ${random_color()}`, 'background-color': `${random_color()+30}`}">
-                            {{ skill.name }}
-                            <button type="button" @click="remove_skill(skill.id)"
-                                    class="end-2.5 text-gray-400 bg-transparent hover:text-gray-900 rounded p-1 text-sm ms-auto inline-flex justify-center items-center  dark:hover:text-white"
-                                    data-modal-hide="authentication-modal">
-                                    <svg class="w-2 h-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                        viewBox="0 0 14 14">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                    </svg>
-                                    <span class="sr-only">Close modal</span>
-                                </button>
-                        </div>
 
-
-                        <AddSkills/>
-
-                    </div>
-                </div>
             </div>
 
             <div class="md:col-span-2">
@@ -66,41 +43,30 @@
                     <div class="flex items-center mb-3">
                         <h6 class="text-sm font-semibold mr-2">First Name</h6>
                         <span :contenteditable="true" @blur="change_values('first_name', $event.target.innerText)">{{
-                            freelancer.first_name }}</span>
+                            customer.first_name }}</span>
 
                     </div>
                     <hr>
                     <div class="flex items-center mb-3">
                         <h6 class="text-sm font-semibold mr-2">Last Name</h6>
                         <span :contenteditable="true" @blur="change_values('last_name', $event.target.innerText)">{{
-                            freelancer.last_name }}</span>
+                            customer.last_name }}</span>
 
                     </div>
                     <hr class="my-2">
                     <div class="flex items-center mb-3">
                         <h6 class="text-sm font-semibold mr-2">Email</h6>
                         <span :contenteditable="true" @blur="change_values('email', $event.target.innerText)">{{
-                            freelancer.email }}</span>
+                            customer.email }}</span>
                     </div>
                     <hr class="my-2">
-                    <div v-if="freelancer.summary" class="flex items-start mb-3 flex-col ">
+                    <div v-if="customer.summary" class="flex items-start mb-3 flex-col ">
                         <h6 class="text-sm font-semibold mr-2">summary</h6>
                         <span @blur="change_values('summary', $event.target.innerText)" :contenteditable="true"
-                            class="text-left p-2"> {{ freelancer.summary }}</span>
+                            class="text-left p-2"> {{ customer.summary }}</span>
 
                     </div>
-                    <hr class="my-2" v-if="freelancer.salary">
-                    <div v-if="freelancer.salary" class="flex items-start mb-3 ">
-                        <h6 class="text-sm font-semibold mr-2">salary</h6>
-                        <span>
-                            <span :contenteditable="true" @blur="change_values('salary', $event.target.innerText)">{{
-                                freelancer.salary }}</span>
-                            $
-                        </span>
 
-                        <hr class="my-2">
-                        <hr class="my-2">
-                    </div>
                     <div class="mt-4 flex">
                         <button @click="edit" class="bg-[#3813db] text-white px-4 py-2 rounded-lg shadow">Edit</button>
                     </div>
@@ -117,7 +83,7 @@
                             </svg>
                             Project Status
                         </h6>
-                        <div v-for="proj in  freelancer.job " :key="proj.id"
+                        <div v-for="proj in  customer.jobs " :key="proj.id"
                             class="  flex items-center mb-3 h-10  sm:h-8 rounded-md border p-3" :class="{
                                 'border-[#ff4057] bg-[#EC489938]': proj.process == 'Start', 'border-[#1bf5af] bg-[#1bf5b038]': proj.process == 'Done'
                                 , 'border-[#493bdb] bg-[#6E63F238]': proj.process == 'Process'
@@ -127,44 +93,29 @@
                                 <span class="text-gray-600 ml-2 text-xs sm:text-sm">{{ proj.process }}</span>
                             </div>
                         </div>
+                        
+                        <AddJob/>
                     </div>
 
                 </div>
             </div>
         </div>
+        
     </div>
-
-   
-    
 </template>
 
 <script setup>
 import { computed, onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
 import { useRoute } from 'vue-router';
-import { useToast } from "primevue/usetoast";
 import * as Yup from 'yup';
-import AddSkills from '../modals/AddSkills.vue';
+import AddJob from '../modals/AddJob.vue';
 const store = useStore()
-const toast = useToast();
-const showSuccess = () => {
-    toast.add({ severity: 'success', summary: 'Success Message', detail: 'Message Content', life: 3000 });
-};
-
-const showError = () => {
-    toast.add({ severity: 'error', summary: 'Error Message', detail: 'Message Content', life: 3000 });
-};
-
-const colors = ["#070f4e", "#a55233", "#17b794", "#5c5470", "#f96d00", "#ff007b", "#400082", "#ff0000", "#00aaa0", "#efd510"]
-const random_color = () => {
-    return colors[Math.floor(Math.random() * colors.length)]
-}
 const router = useRoute().params
-
 onMounted(() => {
-    store.dispatch("admin/req_one_freelancer", router.username)
+    store.dispatch("admin/req_one_customer", router.username)
 })
-const freelancer = computed(() => store.getters["admin/get_one_freelancer"])
+const customer = computed(() => store.getters["admin/get_one_customer"])
 let values = {}
 const confirmed = ref(false)
 
@@ -182,18 +133,23 @@ const scheam = Yup.object({
 })
 
 const edit = () => {
-    scheam.validate(values).then(r => {
-        if (Object.keys(r).length) {
-            r.id = freelancer.value?.id
-            store.dispatch("admin/change_freelancer_info", r)
-            confirmed.value = true
-            values = {}
-            showSuccess()
-
-        }
-    }).catch(r => {
-        showError(r)
-    })
+    try {
+        scheam.validate(values).then(r => {
+            if (Object.keys(r).length) {
+                console.log(r, Object.keys(r));
+                r.id = customer.value?.id
+                store.dispatch("admin/change_info", r)
+                confirmed.value = true
+                values = {}
+             
+            }
+        }).catch(r => {
+           r
+        })
+    }
+    catch (err) {
+        alert(err)
+    }
 
 }
 
@@ -202,10 +158,7 @@ const handleFileUpload = (e) => {
     console.log(e.target.files[0]);
 }
 
-const remove_skill = (id) => {
-    store.commit('freelancer/remove_skills_from_developer', id)
-    store.dispatch("freelancer/delete_skill_from_freelancer", id)
-}
+
 
 </script>
 

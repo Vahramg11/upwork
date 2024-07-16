@@ -4,7 +4,6 @@
     class="w-60 -translate-x-48 fixed transition transform ease-in-out duration-1000 z-50 flex h-screen bg-[#1E293B] ">
     <!-- open sidebar button -->
     <div
-    
       class="max-toolbar translate-x-24 scale-x-0 w-full -right-6 transition transform ease-in duration-300 flex items-center justify-between border-4 border-white dark:border-[#0F172A] bg-[#1E293B]  absolute top-2 rounded-full h-12">
 
       <!-- <div class="flex pl-4 items-center space-x-2 ">
@@ -43,7 +42,8 @@
         </div>
       </div> -->
     </div>
-    <div @click="setDark('dark')" :class="{'hidden': mode}" class="moon text-white hover:text-blue-500 dark:hover:text-[#38BDF8] -right-6 transition transform ease-in-out duration-500 flex border-4 border-white dark:border-[#0F172A] bg-[#1E293B] dark:hover:bg-blue-500  absolute top-2 p-3 rounded-full hover:rotate-45">
+    <div @click="setDark('dark')" :class="{ 'hidden': mode }"
+      class="moon text-white hover:text-blue-500 dark:hover:text-[#38BDF8] -right-6 transition transform ease-in-out duration-500 flex border-4 border-white dark:border-[#0F172A] bg-[#1E293B] dark:hover:bg-blue-500  absolute top-2 p-3 rounded-full hover:rotate-45">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor"
         class="w-4 h-4">
         <path strokeLinecap="round" strokeLinejoin="round"
@@ -52,8 +52,9 @@
     </div>
 
 
-    <div @click="setDark('light')" class="text-white hover:text-blue-500 dark:hover:text-[#38BDF8] -right-6 transition transform ease-in-out duration-500  border-4 border-white dark:border-[#0F172A] bg-[#1E293B] dark:hover:bg-blue-500 absolute top-2 p-3 rounded-full  hover:rotate-45"
-    :class="{'hidden': !mode}">
+    <div @click="setDark('light')"
+      class="text-white hover:text-blue-500 dark:hover:text-[#38BDF8] -right-6 transition transform ease-in-out duration-500  border-4 border-white dark:border-[#0F172A] bg-[#1E293B] dark:hover:bg-blue-500 absolute top-2 p-3 rounded-full  hover:rotate-45"
+      :class="{ 'hidden': !mode }">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
         class="w-4 h-4">
         <path stroke-linecap="round" stroke-linejoin="round"
@@ -137,7 +138,7 @@
 
   </aside>
   <!-- CONTENT -->
-  <div class="content ml-12 transform ease-in-out duration-500  px-2 md:px-5 " >
+  <div class="content ml-12 transform ease-in-out duration-500  px-2 md:px-5 ">
     <!-- <nav class="flex px-5 py-3 text-gray-700  rounded-lg bg-gray-50 dark:bg-[#1E293B] " aria-label="Breadcrumb">
       <ol class="inline-flex items-center space-x-1 md:space-x-3">
         <li class="inline-flex items-center">
@@ -164,16 +165,16 @@
         </li>
       </ol>
     </nav> -->
-    <div class="flex flex-wrap my-5 -mx-2" >
-      <button class="w-full lg:w-1/3 p-2" @click="router.push('/admin/freelancers')">
+    <div class="flex flex-wrap my-5 -mx-2">
+      <button class="w-full lg:w-1/3 p-2" @click="router.push('/admin/freelancers'), choosen = 'F'">
         <div
-        
-          class="flex items-center flex-row w-full bg-gradient-to-r rounded-md p-3  dark:from-cyan-500 dark:to-blue-500 from-indigo-500 via-purple-500 to-pink-500">
+          class="flex items-center flex-row w-full bg-gradient-to-r rounded-md p-3  dark:from-cyan-500 dark:to-blue-500 from-indigo-500 via-purple-500 to-pink-500"
+          >
           <div
             class="flex items-center p-2 rounded-md flex-none w-8 h-8 md:w-12 md:h-12  text-indigo-500 dark:text-white  bg-white dark:bg-[#0F172A]"
-            :class="{'dark': mode}">
+            :class="{ 'dark': mode,   }">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
-              stroke="currentColor" class="object-scale-down transition duration-500" >
+              stroke="currentColor" class="object-scale-down transition duration-500">
               <path strokeLinecap="round" strokeLinejoin="round"
                 d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
             </svg>
@@ -181,6 +182,7 @@
           <div class="flex flex-col justify-around flex-grow ml-5 text-white">
             <div class="text-xs whitespace-nowrap">
               Freelancers
+              {{ choosen }}
             </div>
             <div class="">
               100
@@ -195,7 +197,7 @@
           </div>
         </div>
       </button>
-      <button class="w-full md:w-1/2 lg:w-1/3 p-2" @click="router.push('/admin/customers')">
+      <button class="w-full md:w-1/2 lg:w-1/3 p-2" @click="router.push('/admin/customers'), choosen = 'C'">
         <div
           class="flex items-center flex-row w-full bg-gradient-to-r dark:from-cyan-500 dark:to-blue-500 from-indigo-500 via-purple-500 to-pink-500 rounded-md p-3">
           <div
@@ -223,7 +225,7 @@
           </div>
         </div>
       </button>
-      <button class="w-full md:w-1/2 lg:w-1/3 p-2 "  @click="router.push('/admin/jobs')">
+      <button class="w-full md:w-1/2 lg:w-1/3 p-2 " @click="router.push('/admin/jobs'), choosen = 'J'">
         <div
           class="flex items-center flex-row w-full bg-gradient-to-r dark:from-cyan-500 dark:to-blue-500 from-indigo-500 via-purple-500 to-pink-500 rounded-md p-3">
           <div
@@ -258,31 +260,31 @@
   
 <script setup>
 import router from '@/router';
-import {  ref } from 'vue';
+import { ref } from 'vue';
 import { useStore } from 'vuex';
 
 
 const store = useStore()
 const logOut = () => {
-  store.dispatch("log_out")
-
+  store.dispatch("auth/log_out")
 }
+const choosen = ref('F')
 
 const mode = ref(true)
 
-const setDark =(val) => {
+const setDark = (val) => {
   mode.value = !mode.value
-    if (val === "dark") {
-      console.log(mode.value);
-        // document.documentElement.classList.add('dark')
-        // moon.classList.add("hidden")
-        // sun.classList.remove("hidden")
-    } else {
-        // document.documentElement.classList.remove('dark')
-        // sun.classList.add("hidden")
-        // moon.classList.remove("hidden")
-        console.log(mode.value);
-    }
+  if (val === "dark") {
+    console.log(mode.value);
+    // document.documentElement.classList.add('dark')
+    // moon.classList.add("hidden")
+    // sun.classList.remove("hidden")
+  } else {
+    // document.documentElement.classList.remove('dark')
+    // sun.classList.add("hidden")
+    // moon.classList.remove("hidden")
+    console.log(mode.value);
+  }
 }
 </script>
   

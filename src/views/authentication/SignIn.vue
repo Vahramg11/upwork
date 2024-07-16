@@ -72,7 +72,7 @@
                     </form>
                 </div>
                 <div class="lg:h-[400px] md:h-[300px] max-md:mt-8">
-                    <img src="https://readymadeui.com/login-image.webp"
+                    <img src="../../assets/reg/login-image.webp"
                         class="w-full h-full max-md:w-4/5 mx-auto block object-cover" alt="Dining Experience" />
                 </div>
             </div>
@@ -102,9 +102,8 @@ const { handleSubmit, errors, defineField, resetForm } = useForm({
 
 });
 const onsumbit = handleSubmit(values => {
-    store.dispatch("sign_in", values)
-    // resetForm()
-    resetForm
+    store.dispatch("auth/sign_in", values)
+    resetForm()
 })
 
 const [username, usernameAttrs] = defineField('username');

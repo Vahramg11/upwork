@@ -5,13 +5,25 @@ const Axios = axios.create({
     baseURL: 'http://127.0.0.1:8000/'
 });
 export default {
+    namespaced: true,
     state: {
-        user: null
+        user: null,
+        professions:[]
     },
-    getters: {},
+    getters: {
+        get_professions(state){
+            return state.professions
+        },
+        get_user(state){
+            return state.user
+        }
+    },
     mutations: {
         change_user(state, obj){
             state.user = obj
+        },
+        change_professions(state, new_value){
+            state.professions = new_value
         }
     },
     actions: {
@@ -75,6 +87,11 @@ export default {
                 default:
                     router.push("/")
             }
+        },
+        async req_professions({commit}){
+            const {data} = await Axios.get("professions/")
+            console.log(data);
+            commit("change_professions", data)
         }
     },
 }

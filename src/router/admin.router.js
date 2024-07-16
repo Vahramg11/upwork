@@ -1,7 +1,3 @@
-import AdminPage from "@/views/admin/AdminPage.vue"
-import MainOption from "@/components/options/MainOption.vue"
-import CustomOption from "@/components/options/CustomOption.vue"
-import FreelancerInfo from "@/components/options/FreelancerInfo.vue"
 export default [
     {
         path: "/admin",
@@ -9,25 +5,31 @@ export default [
         children:[
             {
                 path: '',
-                redirect: 'admin/freelancers' // Redirect to child1 as the default route
+                redirect: 'admin/freelancers', // Redirect to child1 as the default route
+                name: 'default'
             },
             {
                 path: "freelancers",
-                component: MainOption,
-                default: true
+                component: ()=>import("@/components/options/FreelancerOption.vue"),
+                name: "freelancers",
             },
             {
                 path: "customers",
-                component: CustomOption,
-                default: true
+                component: ()=>import("@/components/options/CustomOption.vue"),
+                name: "custoemrs",
             },
             {
                 path: "freelancer/:username",
                 name: 'freelancer-info',    
-                component: FreelancerInfo
+                component: ()=>import("@/components/options/FreelancerInfo.vue")
+            },
+            {
+                path: "customer/:username",
+                name: 'customer-info',    
+                component: ()=>import("@/components/options/CustomerInfo.vue")
             },
         ],
-        component: AdminPage,
+        component: ()=>import("@/views/admin/AdminPage.vue"),
         
     },
     // {

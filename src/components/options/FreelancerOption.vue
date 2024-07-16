@@ -1,6 +1,4 @@
 <template>
-
-  
     <div class="pt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8 ml-12 p-2 md:p-5" >
     <!-- Card start -->
     <div v-for="dev in devs" :key="dev.id" class="bg-[#fcfefe] rounded-lg overflow-hidden shadow-lg hover:shadow-xl">
@@ -27,7 +25,7 @@
           <button @click="get_one(dev.username)" class="flex-1 rounded-lg bg-indigo-500 text-white font-semibold hover:bg-[#371f9e] px-6 py-2">
             Info
           </button>
-          <button class="flex-1 rounded-lg bg-pink-500 text-white font-semibold hover:bg-[#f8223b] px-6 py-2">
+          <button @click="delete_freelancer(dev.id)" class="flex-1 rounded-lg bg-pink-500 text-white font-semibold hover:bg-[#f8223b] px-6 py-2">
             Delete
           </button>
         </div>
@@ -46,6 +44,10 @@ const devs = computed(() => store.getters["admin/get_freelancers"])
 
 const get_one = (username)=>{
     router.push({ name: 'freelancer-info', params: { username } })
+}
+
+const delete_freelancer = (id)=>{
+  store.dispatch("admin/remove_freelancer", id)
 }
 
 onMounted(() => {

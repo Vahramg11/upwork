@@ -1,6 +1,5 @@
 import VueCookies from 'vue-cookies';
 import axios from 'axios';
-// import router from '@/router';
 const Axios = axios.create({
   baseURL: 'http://127.0.0.1:8000/',
 });
@@ -16,7 +15,7 @@ Axios.interceptors.request.use((config) => {
 export default {
   namespaced: true,
   state: {
-    
+
     jobs: [
       {
         "id": 1,
@@ -232,60 +231,15 @@ export default {
     ],
 
 
-    customers: [
-      {
-        "id": 1,
-        "first_name": "Alice",
-        "last_name": "Johnson",
-        "email": "alice.johnson@example.com",
-        "phone": "+1 (123) 456-7890",
-        "image": "https://randomuser.me/api/portraits/women/1.jpg",
-      },
-      {
-        "id": 2,
-        "first_name": "Bob",
-        "last_name": "Smith",
-        "email": "bob.smith@example.com",
-        "phone": "+1 (234) 567-8901",
-        "country": "USA",
-        "image": "https://randomuser.me/api/portraits/men/2.jpg",
-
-      },
-      {
-        "id": 3,
-        "first_name": "Carol",
-        "last_name": "Williams",
-        "email": "carol.williams@example.com",
-        "phone": "+1 (345) 678-9012",
-        "image": "https://randomuser.me/api/portraits/women/3.jpg",
-
-      },
-      {
-        "id": 4,
-        "first_name": "David",
-        "last_name": "Brown",
-        "email": "david.brown@example.com",
-        "phone": "+1 (456) 789-0123",
-        "image": "https://randomuser.me/api/portraits/men/4.jpg",
-      },
-      {
-        "id": 5,
-        "first_name": "Emma",
-        "last_name": "Davis",
-        "email": "emma.davis@example.com",
-        "phone": "+1 (567) 890-1234",
-        "image": "https://randomuser.me/api/portraits/women/5.jpg",
-      }
-    ],
-    skills: [],
+    customers: [], 
     freelancers: [],
-    one_freelancer:null
+    one_freelancer: null,
+    one_customer: null,
 
 
   },
   getters: {
     get_freelancers(state) {
-      console.log(state);
       return state.freelancers
     },
     get_customers(state) {
@@ -294,35 +248,82 @@ export default {
     get_jobs(state) {
       return state.jobs
     },
-    get_one_freelancer(state){
+    get_one_freelancer(state) {
       return state.one_freelancer
+    },
+    get_one_customer(state) {
+      return state.one_customer
     }
   },
   actions: {
-    async req_freelancers({commit}) {
-      const  {data}  = await Axios.get("freelancers/")
-      console.log(data);
+    async req_freelancers({ commit }) {
+      const { data } = await Axios.get("freelancers/")
       commit("change_freelancers", data)
     },
-
-    async get_one_freelancer({commit}, username){
-      const {data} = await Axios.get(`freelancer/${username}/`)
-      commit("change_one_freelancer", data)
-      // router.push(`/freelancer/${data.username}`)
+    async req_customers({ commit }) {
+      const { data } = await Axios.get("customers/")
+      commit("change_customers", data)
     },
 
-    async change_info(_, obj){
-      const {data} = await Axios.patch(`change_info/freelancer/${obj.id}/`, obj)
-      console.log(data, "changeinfoadmin");
-    }
+    async req_one_freelancer({ commit, dispatch }, username) {
+      const { data } = await Axios.get(`freelancer/${username}/`)
+      commit("change_one_freelancer", data)
+      dispatch("freelancer/get_skills",data, {root: true})
+    },
+
+    async req_one_customer({ commit }, username) {
+      const { data } = await Axios.get(`customer/${username}/`)
+      commit("change_one_customer", data)
+    },
+
+    async change_freelancer_info(_, obj) {
+      await Axios.patch(`change_info/freelancer/${obj.id}/`, obj)
+    },
+    async change_customer_info(_, obj) {
+      await Axios.patch(`change_info/freelancer/${obj.id}/`, obj)
+    },
+    async remove_freelancer({ commit }, id) {
+      await Axios.delete(`delete/freelancer/${id}/`)
+      commit("delete_freelancer", id)
+    },
+    async remove_customer({ commit }, id) {
+      await Axios.delete(`delete/customer/${id}/`)
+      commit("delete_customer", id)
+    },
+
   },
   mutations: {
-    change_freelancers(state, new_value){
+    change_freelancers(state, new_value) {
       state.freelancers = new_value
     },
-    change_one_freelancer(state, new_value){
-      state.one_freelancer = new_value  
-      console.log("change_one_freelancer", state.one_freelancer);
-    }
+    change_customers(state, new_value) {
+      state.customers = new_value
+    },
+    change_one_freelancer(state, new_value) {
+      state.one_freelancer = new_value
+    },
+    change_one_customer(state, new_value) {
+      state.one_customer = new_value
+    },
+    delete_freelancer(state, id) {
+      state.freelancers.splice(state.freelancers.findIndex(elm => elm.id == id), 1)
+    },
+    delete_customer(state, id) {
+      state.customers.splice(state.customers.findIndex(elm => elm.id == id), 1)
+    },
+    add_job_to_customer(state, data){
+      state, data
+    },
+    add_skill_to_freelancer(state, skill){
+      if(!state.one_freelancer.skills.find(elm=>elm.id== skill.id)){
+        state.one_freelancer.skills.push(skill)
+      }
+    },
+    remove_skills_from_developer(state, id) {
+      console.log(state, id);
+      state.one_freelancer.skills.splice(state.one_freelancer.skills.findIndex(elm=>elm.id == id), 1)
+  },
+
+
   }
 }

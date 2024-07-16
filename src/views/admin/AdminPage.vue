@@ -12,7 +12,6 @@
 
   const option = ref("Freelancers")
   function get_option(value) {
-
     option.value = value
   }
   </script>
