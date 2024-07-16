@@ -4,32 +4,41 @@ from job.serializers import JobSerializer
 
 
 class FreelancerSerializer(serializers.ModelSerializer):
-    user_type = serializers.SerializerMethodField()
+    # user_type = serializers.SerializerMethodField()
 
     class Meta:
         model = Freelancer
-        fields = ["id", "first_name", "last_name", "username", "email", "photo", "salary", "user_type", "summary"]
+        fields = ["id", "first_name", "last_name", "username", "email", "photo"]
 
-    def get_user_type(self, data):
-        return data.get_user_type_display()
+    # def get_user_type(self, data):
+    #     return data.get_user_type_display()
 
 
 class SkillsSerializer(serializers.ModelSerializer):
+    have_skill = serializers.BooleanField(required=False)
+
     class Meta:
         model = Skills
-        fields = ["id", "name"]
+        fields = ["id", "name", "have_skill"]
+
+
+class AddSkillSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Skills
+        fields = ["id"]
 
 
 class FreelancerDetails(FreelancerSerializer):
     skills = SkillsSerializer(many=True)
-    profession = serializers.SerializerMethodField()
+    profession = serializers.SerializerMethodField(allow_null=True)
     job = JobSerializer(many=True)
 
     class Meta(FreelancerSerializer.Meta):
-        fields = FreelancerSerializer.Meta.fields + ["skills", "profession", "job"]
+        fields = FreelancerSerializer.Meta.fields + ["skills", "profession", "job", "salary", "summary"]
 
     def get_profession(self, obj):
-        return obj.profession.name
+        print(obj.profession)
+        return obj.profession.name if obj.profession else None
 
 
 class ChangeFreelancerInfo(serializers.ModelSerializer):
@@ -43,3 +52,9 @@ class ChangeFreelancerInfo(serializers.ModelSerializer):
             'salary': {'required': False},
             'summary': {'required': False},
         }
+
+
+class ProfessionsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profession
+        fields = ["id", "name"]

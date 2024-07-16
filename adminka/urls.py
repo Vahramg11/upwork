@@ -4,7 +4,9 @@ from .views import GetInformation
 
 
 urlpatterns = [
-    path("freelancers/", GetInformation.as_view({"get": "get_freelancers"})),
-    path("customers/", GetInformation.as_view({"get": "get_customers"}))
+    path("delete/freelancer/<int:pk>/", GetInformation.as_view({"delete": "remove_freelancer"})),
+    path("delete/customer/<int:pk>/", GetInformation.as_view({"delete": "remove_customer"})),
+    path("professions/", GetInformation.as_view({"get": "get_professions"}))
+
 ]
 

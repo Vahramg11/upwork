@@ -1,16 +1,19 @@
-from django.db.models import Prefetch, OuterRef
+from django.db.models import Prefetch, OuterRef, Case, When, Value, BooleanField
 from django.shortcuts import render, get_object_or_404
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 
-from .models import Freelancer
-from .serializers import FreelancerSerializer, FreelancerDetails, ChangeFreelancerInfo
+from .models import Freelancer, Profession, Skills
+from .serializers import FreelancerSerializer, FreelancerDetails, ChangeFreelancerInfo, SkillsSerializer, \
+    ProfessionsSerializer, AddSkillSerializer
 from job.models import Job
 
 
 # Create your views here.
+
+
 class FreelancerStaff(viewsets.ViewSet):
     permission_classes = [IsAuthenticated]
 
@@ -23,11 +26,12 @@ class FreelancerStaff(viewsets.ViewSet):
 
     @action(methods=["GET"], detail=True)
     def get_one_freelancer(self, request, username):
+        print(username)
         one_freelancer = Freelancer.objects.prefetch_related(
             Prefetch('job', queryset=Job.objects.all()),
         ).get(username=username)
         data_serial = FreelancerDetails(instance=one_freelancer)
-        print(data_serial.data)
+        print(one_freelancer)
         return Response(data_serial.data, status=status.HTTP_200_OK)
 
     @action(methods=["PATCH"], detail=True)
@@ -41,3 +45,34 @@ class FreelancerStaff(viewsets.ViewSet):
                     return Response(data=FreelancerDetails(new).data, status=status.HTTP_200_OK)
         except Exception as e:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    @action(methods=["GET"], detail=False)
+    def get_skills(self, request, pk):
+
+        skills = Skills.objects.annotate(
+            have_skill=Case(
+                When(freelancer__id=pk, then=Value(True)),
+                default=Value(False),
+                output_field=BooleanField()
+            )
+        )
+        serial = SkillsSerializer(skills, many=True)
+        return Response(serial.data)
+
+
+    @action(methods=['POST'], detail=True)
+    def add_skill(self, request, username):
+        try:
+            user = get_object_or_404(Freelancer, username=username)
+            skills = AddSkillSerializer(request.data, many=True)
+            user.skills.add(*[i['id'] for i in skills.data])
+            return Response("added", status=status.HTTP_200_OK)
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    @action(methods=['DELETE'], detail=True)
+    def remove_skill_from_freelancer(self, request, username, pk):
+        print("hello, ",pk)
+        user = get_object_or_404(Freelancer, username=username)
+        user.skills.remove(pk)
+        return Response("hello", status=status.HTTP_200_OK)

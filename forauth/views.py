@@ -16,6 +16,9 @@ from freelancer.forms import FreelancerForm
 from adminka.forms import AdminkaForm
 from customer.forms import CustomerForm
 
+from freelancer.models import Profession
+from freelancer.serializers import ProfessionsSerializer
+
 
 # Create your views here.
 class Registration(viewsets.ViewSet):
@@ -33,7 +36,7 @@ class Registration(viewsets.ViewSet):
 
     @action(method=["POST"], detail=False)
     def sign_up(self, request):
-        print(request.data.get("user_type"))
+        print(request.data)
         formForm = Registration.chooseForm(request.data.get("user_type"))
         form = formForm(data=request.data)
         if form.is_valid():
@@ -76,12 +79,9 @@ class Registration(viewsets.ViewSet):
             return AdminSerializer
         else:
             return ValueError("Wrong user_type!!!")
-    # {
-    # "username":"nn",
-    # "first_name":"nn",
-    # "last_name":"nn",
-    # "email":"nn@gmail.com",
-    # "password1":"nn1234nn",
-    # "password2":"nn1234nn",
-    # "role":"student"
-    # }
+
+    @action(methods=["GET"], detail=False)
+    def get_professions(self, request):
+        skills = Profession.objects.all()
+        serial = ProfessionsSerializer(instance=skills, many=True)
+        return Response(data=serial.data, status=status.HTTP_200_OK)

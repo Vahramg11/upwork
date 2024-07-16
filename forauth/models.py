@@ -8,6 +8,6 @@ class MyUser(User):
         ('F', 'freelancer'),
         ('C', 'customer'),
         ('A', 'admin'),
-
     )
     user_type = models.CharField(max_length=50, choices=user_type_choices,)
+

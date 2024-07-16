@@ -53,5 +53,6 @@ urlpatterns = [
     path("", include("adminka.urls")),
     path("", include("job.urls")),
     path("", include("freelancer.urls")),
+    path("", include("customer.urls")),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
