@@ -1,6 +1,10 @@
+import importlib
+
 from rest_framework import serializers
 from .models import Freelancer, Skills, Profession
-from job.serializers import JobSerializer
+
+
+# from job.serializers import JobSerializer
 
 
 class FreelancerSerializer(serializers.ModelSerializer):
@@ -31,10 +35,16 @@ class AddSkillSerializer(serializers.ModelSerializer):
 class FreelancerDetails(FreelancerSerializer):
     skills = SkillsSerializer(many=True)
     profession = serializers.SerializerMethodField(allow_null=True)
-    job = JobSerializer(many=True)
+    jobs = serializers.SerializerMethodField()
 
     class Meta(FreelancerSerializer.Meta):
-        fields = FreelancerSerializer.Meta.fields + ["skills", "profession", "job", "salary", "summary"]
+        fields = FreelancerSerializer.Meta.fields + ["skills", "profession", "jobs", "salary", "summary"]
+
+    def get_jobs(self, obj):
+        JobSerializer = importlib.import_module('.serializers', package='job').JobSerializer
+        jobs_queryset = obj.job.all()
+        serializer = JobSerializer(jobs_queryset, many=True, context=self.context)
+        return serializer.data
 
     def get_profession(self, obj):
         print(obj.profession)

@@ -7,14 +7,15 @@ from rest_framework.response import Response
 from customer.models import Customer
 
 from .models import Job
-from .serializers import JobSerializer
+from .serializers import JobSerializer, AllJobsSerializer
 
 
 # Create your views here.
 class JobsInfo(viewsets.ViewSet):
     permission_classes = [IsAuthenticated]
 
-    @action(method=["POST"], detail=False)
+    #
+    @action(method=["POST"], detail=True)
     def add_job(self, request, username):
         try:
             customer = get_object_or_404(Customer, username=username)
@@ -24,3 +25,8 @@ class JobsInfo(viewsets.ViewSet):
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
+    @action(method=["GET"], detail=False)
+    def get_all_jobs(self, request):
+        jobs = Job.objects.all()
+        serial = AllJobsSerializer(jobs, many=True)
+        return Response(serial.data, status=status.HTTP_200_OK)

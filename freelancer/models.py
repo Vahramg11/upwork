@@ -1,7 +1,7 @@
 from django.db import models
 from forauth.models import MyUser
 
-from job.models import Job
+# from job.models import Job
 
 
 class Skills(models.Model):
@@ -29,7 +29,7 @@ class Freelancer(MyUser):
     myuser_ptr = models.OneToOneField(MyUser, on_delete=models.CASCADE, parent_link=True, related_name='freelancer_profile')
     skills = models.ManyToManyField(Skills)
     profession = models.ForeignKey(Profession, on_delete=models.CASCADE, related_name="freelancers", null=True, blank=True)
-    job = models.ManyToManyField(Job, related_name="freelancer")
+    job = models.ManyToManyField("job.Job", related_name="freelancer")
     summary = models.TextField(null=True, blank=True)
 
     class Meta:

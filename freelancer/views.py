@@ -1,4 +1,4 @@
-from django.db.models import Prefetch, OuterRef, Case, When, Value, BooleanField
+from django.db.models import Prefetch, OuterRef, Case, When, Value, BooleanField, Exists
 from django.shortcuts import render, get_object_or_404
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
@@ -31,8 +31,8 @@ class FreelancerStaff(viewsets.ViewSet):
             Prefetch('job', queryset=Job.objects.all()),
         ).get(username=username)
         data_serial = FreelancerDetails(instance=one_freelancer)
-        print(one_freelancer)
-        return Response(data_serial.data, status=status.HTTP_200_OK)
+        choose_types = Job.CHOICE_TYPES
+        return Response({"data": data_serial.data, "types": choose_types}, status=status.HTTP_200_OK)
 
     @action(methods=["PATCH"], detail=True)
     def change_freelancer_info(self, request, pk):
@@ -49,15 +49,16 @@ class FreelancerStaff(viewsets.ViewSet):
     @action(methods=["GET"], detail=False)
     def get_skills(self, request, pk):
 
+        subquery = Skills.objects.filter(
+            freelancer=pk,
+            id=OuterRef('pk')
+        )
+
         skills = Skills.objects.annotate(
-            have_skill=Case(
-                When(freelancer__id=pk, then=Value(True)),
-                default=Value(False),
-                output_field=BooleanField()
-            )
+            have_skill=Exists(subquery)
         )
         serial = SkillsSerializer(skills, many=True)
-        return Response(serial.data)
+        return Response(serial.data, status=status.HTTP_200_OK)
 
 
     @action(methods=['POST'], detail=True)
@@ -72,7 +73,7 @@ class FreelancerStaff(viewsets.ViewSet):
 
     @action(methods=['DELETE'], detail=True)
     def remove_skill_from_freelancer(self, request, username, pk):
-        print("hello, ",pk)
+        print("hello, ", pk)
         user = get_object_or_404(Freelancer, username=username)
         user.skills.remove(pk)
         return Response("hello", status=status.HTTP_200_OK)
