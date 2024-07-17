@@ -91,9 +91,9 @@
                             <p class="text-gray-600 text-xs sm:text-sm">{{ proj.name }}</p>
                             <div class="flex items-center ml-auto">
                                 <span class="text-gray-600 ml-2 text-xs sm:text-sm">{{ proj.process }}</span>
+                               
                             </div>
                         </div>
-                        
                         <AddJob/>
                     </div>
 
@@ -116,6 +116,7 @@ onMounted(() => {
     store.dispatch("admin/req_one_customer", router.username)
 })
 const customer = computed(() => store.getters["admin/get_one_customer"])
+
 let values = {}
 const confirmed = ref(false)
 

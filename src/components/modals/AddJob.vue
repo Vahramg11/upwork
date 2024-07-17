@@ -1,6 +1,5 @@
 
 <template>
-
     <div class="flex justify-start">
         <button type="button" data-modal-target="authentication-modal" data-modal-toggle="authentication-modal"
             @click="toggle_modal"
@@ -11,7 +10,6 @@
     </div>
 
     <div id="authentication-modal" tabindex="-1" aria-hidden="true" :class="{ 'hidden': modal }"
-    
         class="overflow-y-auto overflow-x-hidden absolute w-full inset-0 h-[calc(100%-1rem)] max-h-full ">
         <div class="absolute p-4 w-full max-w-md max-h-full top-0 left-0 right-0 bottom-0 m-auto ">
             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -34,13 +32,34 @@
                     <form class="space-y-4" @submit.prevent="req_data_job">
                         <div>
                             <label for="name"
-                                class="text-left block mb-2 text-sm font-medium text-gray-900 dark:text-white">Add
-                                Job</label>
+                                class="text-left block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
                             <input type="text" name="name" id="name" v-model="name" v-bind="nameAttrs"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white "
                                 placeholder="job title..." />
-                                <p>{{ errors.name }}</p>
+                            <p>{{ errors.name }}</p>
                         </div>
+
+                        <div>
+                            <label for="description"
+                                class="text-left block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                            <input type="text" name="description" id="description" v-model="description" v-bind="descriptionAttrs"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white "
+                                placeholder="job description..." />
+                            <p>{{ errors.description }}</p>
+                        </div>
+
+                        <div>
+                            <label for="experience"
+                                class="text-left block mb-2 text-sm font-medium text-gray-900 dark:text-white">Experience</label>
+                            <input type="number" name="experience" id="experience" v-model="experience" v-bind="experienceAttrs"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white "
+                                placeholder="experience..." />
+                            <p>{{ errors.experience }}</p>
+                        </div>
+
+
+
+                       
                         <button type="submit"
                             class="focus:border-black border-[1px] text-center text-white flex items-center flex-row w-full bg-gradient-to-r dark:from-cyan-500 dark:to-blue-500 from-indigo-500 via-purple-500 to-pink-500 rounded-md p-3">Submit
                             job
@@ -59,7 +78,9 @@ import { useForm } from 'vee-validate';
 import * as yup from "yup"
 const { handleSubmit, resetForm, errors, defineField } = useForm({
     validationSchema: yup.object({
-        name: yup.string().required().min(5)
+        name: yup.string().required().min(5),
+        experience: yup.number().max(30).min(0),
+        description: yup.string()
     })
 })
 const store = useStore()
@@ -69,6 +90,8 @@ const toggle_modal = () => {
 }
 
 const [name, nameAttrs] = defineField("name")
+const [description, descriptionAttrs] = defineField("description")
+const [experience, experienceAttrs] = defineField("experience")
 const req_data_job = handleSubmit(values => {
     console.log(values);
     store.dispatch("customer/add_job", values)

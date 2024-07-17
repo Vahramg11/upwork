@@ -80,7 +80,6 @@ const add_skill = (skill) => {
 
 const toggle_modal = () => {
     modal.value = !modal.value
-    console.log(arr.value, "arrrrr");
 
 }
 const random_color = () => {

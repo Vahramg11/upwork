@@ -1,6 +1,7 @@
 <template>
     <div v-if="freelancer"
         class="mx-auto px-10 py-4  sm:px-20 content ml-12 transform ease-in-out duration-500 md:px-5 pb-4">
+        <!-- {{ freelancer }} -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div class="md:col-span-1">
                 <div class="bg-white p-4 rounded-lg shadow">
@@ -40,22 +41,22 @@
                     <div class="flex flex-wrap gap-2">
                         <div v-for="skill in freelancer.skills" :key="skill.id"
                             class="text-black p-2 text-center rounded-lg text-sm  shadow-lg mb-4"
-                            :style="{ 'border': `1px solid ${random_color()}`, 'background-color': `${random_color()+30}`}">
+                            :style="{ 'border': `1px solid ${random_color()}`, 'background-color': `${random_color() + 30}` }">
                             {{ skill.name }}
                             <button type="button" @click="remove_skill(skill.id)"
-                                    class="end-2.5 text-gray-400 bg-transparent hover:text-gray-900 rounded p-1 text-sm ms-auto inline-flex justify-center items-center  dark:hover:text-white"
-                                    data-modal-hide="authentication-modal">
-                                    <svg class="w-2 h-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                        viewBox="0 0 14 14">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                    </svg>
-                                    <span class="sr-only">Close modal</span>
-                                </button>
+                                class="end-2.5 text-gray-400 bg-transparent hover:text-gray-900 rounded p-1 text-sm ms-auto inline-flex justify-center items-center  dark:hover:text-white"
+                                data-modal-hide="authentication-modal">
+                                <svg class="w-2 h-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 14 14">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                </svg>
+                                <span class="sr-only">Close modal</span>
+                            </button>
                         </div>
 
 
-                        <AddSkills/>
+                        <AddSkills />
 
                     </div>
                 </div>
@@ -117,7 +118,7 @@
                             </svg>
                             Project Status
                         </h6>
-                        <div v-for="proj in  freelancer.job " :key="proj.id"
+                        <div v-for="proj in  freelancer.jobs " :key="proj.id"
                             class="  flex items-center mb-3 h-10  sm:h-8 rounded-md border p-3" :class="{
                                 'border-[#ff4057] bg-[#EC489938]': proj.process == 'Start', 'border-[#1bf5af] bg-[#1bf5b038]': proj.process == 'Done'
                                 , 'border-[#493bdb] bg-[#6E63F238]': proj.process == 'Process'
@@ -133,9 +134,6 @@
             </div>
         </div>
     </div>
-
-   
-    
 </template>
 
 <script setup>
@@ -150,21 +148,29 @@ const toast = useToast();
 const showSuccess = () => {
     toast.add({ severity: 'success', summary: 'Success Message', detail: 'Message Content', life: 3000 });
 };
+const job_types = computed(() => store.state.admin.job_types)
 
 const showError = () => {
     toast.add({ severity: 'error', summary: 'Error Message', detail: 'Message Content', life: 3000 });
 };
 
 const colors = ["#070f4e", "#a55233", "#17b794", "#5c5470", "#f96d00", "#ff007b", "#400082", "#ff0000", "#00aaa0", "#efd510"]
-const random_color = () => {
-    return colors[Math.floor(Math.random() * colors.length)]
-}
+const random_color = (() => {
+    let index = 0;
+    return () => {
+        const color = colors[index];
+        index = (index + 1) % colors.length; // Move to the next index, wrap around if at the end
+        return color;
+    };
+})()
 const router = useRoute().params
 
 onMounted(() => {
     store.dispatch("admin/req_one_freelancer", router.username)
+
 })
 const freelancer = computed(() => store.getters["admin/get_one_freelancer"])
+
 let values = {}
 const confirmed = ref(false)
 

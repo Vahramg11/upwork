@@ -28,6 +28,12 @@ export default [
                 name: 'customer-info',    
                 component: ()=>import("@/components/options/CustomerInfo.vue")
             },
+
+            {
+                path: "jobs",
+                name: "jobs",
+                component: ()=>import("@/components/options/JobOption.vue")
+            }
         ],
         component: ()=>import("@/views/admin/AdminPage.vue"),
         

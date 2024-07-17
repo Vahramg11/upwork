@@ -32,11 +32,8 @@ export default {
             await Axios.post(`add_skill/freelancer/${router.currentRoute._value.params.username}/`, info.map(elm=>{ return {id: elm.id} }))
         },
         async delete_skill_from_freelancer(_, id){
-
-            let a = await Axios.delete(`skills/remove/${router.currentRoute._value.params.username}/${id}/`, )
-            console.log(a);
-
-
+            let {data} = await Axios.delete(`skills/remove/${router.currentRoute._value.params.username}/${id}/`)
+            console.log(data);
         }
     },
     mutations: {
