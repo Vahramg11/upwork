@@ -34,8 +34,8 @@
                     <form class="space-y-4" @submit.prevent="submit_skills">
                         <div class="flex flex-wrap gap-2">
                             <div v-for="skill in skills" :key="skill.id"
-                                class="text-black p-2 text-center rounded-lg text-sm  shadow-lg mb-4"
-                                :style="{ 'border': `1px solid ${random_color()}`, 'background-color': skill.have_skill || one_freelancer.skills.includes(skill) ? random_color() + 80 : 'white' }"
+                                class="text-black p-2 text-center rounded-lg text-sm  shadow-lg mb-4 border border-indigo-600"
+                                :class="{'bg-indigo-400': skill.have_skill || one_freelancer.skills.includes(skill)}"
                                 @click="add_skill(skill)">
                                 {{ skill.name }}
 
@@ -69,7 +69,6 @@ onUpdated(()=>{
 const one_freelancer = computed(() => store.getters["admin/get_one_freelancer"])
 const modal = ref(true)
 
-const colors = ["#070f4e", "#a55233", "#17b794", "#5c5470", "#f96d00", "#ff007b", "#400082", "#ff0000", "#00aaa0", "#efd510"]
 const arr = ref([])
 
 const add_skill = (skill) => {
@@ -82,9 +81,7 @@ const toggle_modal = () => {
     modal.value = !modal.value
 
 }
-const random_color = () => {
-    return colors[Math.floor(Math.random() * colors.length)]
-}
+
 
 const submit_skills = () => {
     store.dispatch("freelancer/add_skills", arr.value)

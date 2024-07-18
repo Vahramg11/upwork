@@ -67,6 +67,12 @@ export default {
       commit("delete_freelancer", id)
     },
 
+    async change_freelancer_job_process(_, info){
+      const {data} = Axios.patch(`change_job_status/${info.id}/`, {status: info.status})
+      console.log("dispatch", data);
+
+    },
+
     // ***********customers***********
 
     async req_customers({ commit }) {
@@ -124,6 +130,11 @@ export default {
 
     remove_skills_from_developer(state, id) {
       state.one_freelancer.skills.splice(state.one_freelancer.skills.findIndex(elm => elm.id == id), 1)
+    },
+
+    change_freelancer_job_status(state, data){
+     state.one_freelancer.jobs.find(elm=>elm.id == data.job.id).process = data.status;
+
     },
 
     // ***********customers************

@@ -1,7 +1,6 @@
 <template>
     <div v-if="freelancer"
         class="mx-auto px-10 py-4  sm:px-20 content ml-12 transform ease-in-out duration-500 md:px-5 pb-4">
-        <!-- {{ freelancer }} -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div class="md:col-span-1">
                 <div class="bg-white p-4 rounded-lg shadow">
@@ -40,8 +39,8 @@
                     <h1 class="text-start mb-3 font-bold">Skills</h1>
                     <div class="flex flex-wrap gap-2">
                         <div v-for="skill in freelancer.skills" :key="skill.id"
-                            class="text-black p-2 text-center rounded-lg text-sm  shadow-lg mb-4"
-                            :style="{ 'border': `1px solid ${random_color()}`, 'background-color': `${random_color() + 30}` }">
+                            class="text-black p-2 text-center rounded-lg text-sm  shadow-lg mb-4 border-solid border border-indigo-600"
+                            >
                             {{ skill.name }}
                             <button type="button" @click="remove_skill(skill.id)"
                                 class="end-2.5 text-gray-400 bg-transparent hover:text-gray-900 rounded p-1 text-sm ms-auto inline-flex justify-center items-center  dark:hover:text-white"
@@ -127,6 +126,11 @@
                             <div class="flex items-center ml-auto">
                                 <span class="text-gray-600 ml-2 text-xs sm:text-sm">{{ proj.process }}</span>
                             </div>
+                            <div>
+                                <select @change="change_job_status($event, proj)"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 ml-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <option  v-for="elm,i in job_types" :value="elm[1]" :key="i">{{ elm[1] }}</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
 
@@ -154,15 +158,7 @@ const showError = () => {
     toast.add({ severity: 'error', summary: 'Error Message', detail: 'Message Content', life: 3000 });
 };
 
-const colors = ["#070f4e", "#a55233", "#17b794", "#5c5470", "#f96d00", "#ff007b", "#400082", "#ff0000", "#00aaa0", "#efd510"]
-const random_color = (() => {
-    let index = 0;
-    return () => {
-        const color = colors[index];
-        index = (index + 1) % colors.length; // Move to the next index, wrap around if at the end
-        return color;
-    };
-})()
+
 const router = useRoute().params
 
 onMounted(() => {
@@ -211,6 +207,10 @@ const handleFileUpload = (e) => {
 const remove_skill = (id) => {
     store.commit('freelancer/remove_skills_from_developer', id)
     store.dispatch("freelancer/delete_skill_from_freelancer", id)
+}
+const change_job_status = (event, proj)=>{
+    store.commit("admin/change_freelancer_job_status", {job:proj, status: event.target.value })
+    store.dispatch("admin/change_freelancer_job_process", {id: proj.id, status: event.target.value})
 }
 
 </script>
