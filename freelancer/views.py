@@ -73,7 +73,10 @@ class FreelancerStaff(viewsets.ViewSet):
 
     @action(methods=['DELETE'], detail=True)
     def remove_skill_from_freelancer(self, request, username, pk):
-        print("hello, ", pk)
+        print("hello", pk)
         user = get_object_or_404(Freelancer, username=username)
         user.skills.remove(pk)
         return Response("hello", status=status.HTTP_200_OK)
+
+
+

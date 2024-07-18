@@ -30,3 +30,17 @@ class JobsInfo(viewsets.ViewSet):
         jobs = Job.objects.all()
         serial = AllJobsSerializer(jobs, many=True)
         return Response(serial.data, status=status.HTTP_200_OK)
+
+    @action(methods=["PATCH"], detail=True)
+    def change_freelancer_job_status(self, request, pk):
+        print(request.data)
+        job = get_object_or_404(Job, pk=pk)
+        status_type = request.data.get("status")
+
+        if status is None:
+            return Response({"detail": "Status is required."}, status=status.HTTP_400_BAD_REQUEST)
+
+        job.process = status_type
+        job.save()
+
+        return Response("JobSerializer(job).data", status=status.HTTP_200_OK)
