@@ -89,7 +89,7 @@ export default {
 
 
     async change_customer_info(_, obj) {
-      await Axios.patch(`change_info/freelancer/${obj.id}/`, obj)
+      await Axios.patch(`change_info/customer/${obj.id}/`, obj)
     },
 
     async remove_customer({ commit }, id) {

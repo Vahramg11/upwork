@@ -139,7 +139,7 @@ const edit = () => {
             if (Object.keys(r).length) {
                 console.log(r, Object.keys(r));
                 r.id = customer.value?.id
-                store.dispatch("admin/change_info", r)
+                store.dispatch("admin/change_customer_info", r)
                 confirmed.value = true
                 values = {}
              

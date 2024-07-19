@@ -36,6 +36,9 @@ export default [
             }
         ],
         component: ()=>import("@/views/admin/AdminPage.vue"),
+        meta:{
+            check_user: true
+        }
         
     },
     // {

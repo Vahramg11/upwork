@@ -185,7 +185,6 @@
               {{ choosen }}
             </div>
             <div class="">
-              100
             </div>
           </div>
           <div class=" flex items-center flex-none text-white">
@@ -213,7 +212,6 @@
               Customers
             </div>
             <div class="">
-              500
             </div>
           </div>
           <div class=" flex items-center flex-none text-white">
@@ -241,7 +239,6 @@
               Jobs
             </div>
             <div class="">
-              500
             </div>
           </div>
           <div class=" flex items-center flex-none text-white">
@@ -260,7 +257,7 @@
   
 <script setup>
 import router from '@/router';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useStore } from 'vuex';
 
 
@@ -285,6 +282,11 @@ const setDark = (val) => {
     // moon.classList.remove("hidden")
     console.log(mode.value);
   }
+
 }
+
+onMounted(()=>{
+  console.log(store);
+})
 </script>
   

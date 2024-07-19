@@ -3,6 +3,9 @@ export default [
     {
         path: "/customer/:username",
         name: "customer",
-        component: CustomerPage
+        component: CustomerPage,
+        meta:{
+            check_user: true
+        }
     }
 ]

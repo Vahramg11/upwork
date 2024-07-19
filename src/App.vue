@@ -1,5 +1,5 @@
 <template>
-<div id="barev"></div>
+  <div id="barev"></div>
   <router-view />
 </template>
 
