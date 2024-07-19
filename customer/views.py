@@ -28,12 +28,10 @@ class CustomerStaff(viewsets.ViewSet):
 
     @action(methods=["GET"], detail=True)
     def get_one_customer(self, request, username):
-        print(username)
         one_customer = Customer.objects.prefetch_related(
             Prefetch('jobs', queryset=Job.objects.all()),
         ).get(username=username)
         data_serial = CustomerDetails(instance=one_customer)
-        print(one_customer)
         return Response(data_serial.data, status=status.HTTP_200_OK)
 
     @action(methods=["PATCH"], detail=True)

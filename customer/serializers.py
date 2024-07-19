@@ -30,13 +30,13 @@ class CustomerDetails(CustomerSerializer):
 class ChangeCustomerInfo(serializers.ModelSerializer):
     class Meta:
         model = Customer
-        fields = ['first_name', 'last_name', 'email', 'phone' 'summary']
+        fields = ['first_name', 'last_name', 'email', 'phone']
         extra_kwargs = {
             'first_name': {'required': False},
             'last_name': {'required': False},
             'email': {'required': False},
             'phone': {'required': False},
-            'summary': {'required': False},
+            # 'summary': {'required': False},
         }
 
 
