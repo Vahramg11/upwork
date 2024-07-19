@@ -1,7 +1,7 @@
 import CustomerPage from "@/views/customer/CustomerPage.vue"
 export default [
     {
-        path: "/customer",
+        path: "/customer/:username",
         name: "customer",
         component: CustomerPage
     }

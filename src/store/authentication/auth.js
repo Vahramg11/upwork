@@ -82,7 +82,7 @@ export default {
                     router.push("/admin")
                     break
                 case "customer":
-                    router.push("/customer")
+                    router.push(`/customer/${user.data.username}`)
                     break
                 default:
                     router.push("/")
