@@ -1,49 +1,13 @@
 <template>
-  <!-- class="-right-6 transition transform ease-in-out duration-500 flex border-4 border-white dark:border-[#0F172A] bg-[#1E293B] dark:hover:bg-blue-500 hover:bg-purple-500 absolute top-2 p-3 rounded-full text-white hover:rotate-45" -->
   <aside
     class="w-60 -translate-x-48 fixed transition transform ease-in-out duration-1000 z-50 flex h-screen bg-[#1E293B] ">
     <!-- open sidebar button -->
     <div
-      class="max-toolbar translate-x-24 scale-x-0 w-full -right-6 transition transform ease-in duration-300 flex items-center justify-between border-4 border-white dark:border-[#0F172A] bg-[#1E293B]  absolute top-2 rounded-full h-12">
+      class="max-toolbar translate-x-24 scale-x-0 w-full -right-6 transition transform ease-in duration-300 flex items-center justify-between border-4 border-white  bg-[#1E293B]  absolute top-2 rounded-full h-12">
 
-      <!-- <div class="flex pl-4 items-center space-x-2 ">
-        <div>
-          <div @click="setDark('dark')" class="moon text-white hover:text-blue-500 dark:hover:text-[#38BDF8]">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor"
-              class="w-4 h-4">
-              <path strokeLinecap="round" strokeLinejoin="round"
-                d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
-            </svg>
-          </div>
-          
-
-          <div @click="setDark('light')" class="sun hidden text-white hover:text-blue-500 dark:hover:text-[#38BDF8]">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-              stroke="currentColor" class="w-4 h-4">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
-            </svg>
-          </div>
-        </div>
-        <div class="text-white hover:text-blue-500 dark:hover:text-[#38BDF8]">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor"
-            class="w-4 h-4">
-            <path strokeLinecap="round" strokeLinejoin="round"
-              d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
-          </svg>
-        </div>
-
-
-      </div> -->
-      <!-- <div
-        class="flex items-center space-x-3 group bg-gradient-to-r dark:from-cyan-500 dark:to-blue-500 from-indigo-500 via-purple-500 to-purple-500  pl-10 pr-2 py-1 rounded-full text-white  ">
-        <div class="transform ease-in-out duration-300 mr-12">
-          NERVE
-        </div>
-      </div> -->
     </div>
     <div @click="setDark('dark')" :class="{ 'hidden': mode }"
-      class="moon text-white hover:text-blue-500 dark:hover:text-[#38BDF8] -right-6 transition transform ease-in-out duration-500 flex border-4 border-white dark:border-[#0F172A] bg-[#1E293B] dark:hover:bg-blue-500  absolute top-2 p-3 rounded-full hover:rotate-45">
+      class="moon text-white hover:text-blue-500  -right-6 transition transform ease-in-out duration-500 flex border-4 border-white  bg-[#1E293B]  absolute top-2 p-3 rounded-full hover:rotate-45">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor"
         class="w-4 h-4">
         <path strokeLinecap="round" strokeLinejoin="round"
@@ -53,7 +17,7 @@
 
 
     <div @click="setDark('light')"
-      class="text-white hover:text-blue-500 dark:hover:text-[#38BDF8] -right-6 transition transform ease-in-out duration-500  border-4 border-white dark:border-[#0F172A] bg-[#1E293B] dark:hover:bg-blue-500 absolute top-2 p-3 rounded-full  hover:rotate-45"
+      class="text-white hover:text-blue-500  -right-6 transition transform ease-in-out duration-500  border-4 border-white  bg-[#1E293B] absolute top-2 p-3 rounded-full  hover:rotate-45"
       :class="{ 'hidden': !mode }">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
         class="w-4 h-4">
@@ -64,7 +28,7 @@
     <!-- MAX SIDEBAR-->
     <div class="max hidden text-white mt-20 flex-col space-y-2 w-full h-[calc(100vh)]">
       <div
-        class="hover:ml-4 w-full text-white hover:text-purple-500 dark:hover:text-blue-500 bg-[#1E293B] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center space-x-3">
+        class="hover:ml-4 w-full text-white hover:text-purple-500 bg-[#1E293B] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center space-x-3">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
           class="w-4 h-4">
           <path strokeLinecap="round" strokeLinejoin="round"
@@ -75,7 +39,7 @@
         </div>
       </div>
       <div
-        class="hover:ml-4 w-full text-white hover:text-purple-500 dark:hover:text-blue-500 bg-[#1E293B] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center space-x-3">
+        class="hover:ml-4 w-full text-white hover:text-purple-500 bg-[#1E293B] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center space-x-3">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
           class="w-4 h-4">
           <path stroke-linecap="round" stroke-linejoin="round"
@@ -86,7 +50,7 @@
         </div>
       </div>
       <div
-        class="hover:ml-4 w-full text-white hover:text-purple-500 dark:hover:text-blue-500 bg-[#1E293B] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center space-x-3">
+        class="hover:ml-4 w-full text-white hover:text-purple-500 bg-[#1E293B] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center space-x-3">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
           class="w-4 h-4">
           <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z" />
@@ -100,7 +64,7 @@
     <!-- MINI SIDEBAR-->
     <div class="mini mt-20 flex flex-col space-y-2 w-full h-[calc(100vh)]">
       <div
-        class="hover:ml-4 justify-end pr-5 text-white hover:text-purple-500 dark:hover:text-blue-500 w-full bg-[#1E293B] p-3 rounded-full transform ease-in-out duration-300 flex">
+        class="hover:ml-4 justify-end pr-5 text-white hover:text-purple-500 w-full bg-[#1E293B] p-3 rounded-full transform ease-in-out duration-300 flex">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
           class="w-4 h-4">
           <path strokeLinecap="round" strokeLinejoin="round"
@@ -111,7 +75,7 @@
 
 
       <div
-        class="hover:ml-4 justify-end pr-5 text-white hover:text-purple-500 dark:hover:text-blue-500 w-full bg-[#1E293B] p-3 rounded-full transform ease-in-out duration-300 flex">
+        class="hover:ml-4 justify-end pr-5 text-white hover:text-purple-500 w-full bg-[#1E293B] p-3 rounded-full transform ease-in-out duration-300 flex">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
           class="w-4 h-4">
           <path stroke-linecap="round" stroke-linejoin="round"
@@ -119,7 +83,7 @@
         </svg>
       </div>
       <div
-        class="hover:ml-4 justify-end pr-5 text-white hover:text-purple-500 dark:hover:text-blue-500 w-full bg-[#1E293B] p-3 rounded-full transform ease-in-out duration-300 flex">
+        class="hover:ml-4 justify-end pr-5 text-white hover:text-purple-500 w-full bg-[#1E293B] p-3 rounded-full transform ease-in-out duration-300 flex">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
           class="w-4 h-4">
           <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z" />
@@ -127,7 +91,7 @@
         </svg>
       </div>
       <button @click="logOut"
-        class="hover:ml-4 justify-end pr-5 text-white hover:text-purple-500 dark:hover:text-blue-500 w-full bg-[#1E293B] p-3 rounded-full transform ease-in-out duration-300 flex">
+        class="hover:ml-4 justify-end pr-5 text-white hover:text-purple-500 w-full bg-[#1E293B] p-3 rounded-full transform ease-in-out duration-300 flex">
         <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2" />
@@ -139,39 +103,18 @@
   </aside>
   <!-- CONTENT -->
   <div class="content ml-12 transform ease-in-out duration-500  px-2 md:px-5 ">
-    <!-- <nav class="flex px-5 py-3 text-gray-700  rounded-lg bg-gray-50 dark:bg-[#1E293B] " aria-label="Breadcrumb">
-      <ol class="inline-flex items-center space-x-1 md:space-x-3">
-        <li class="inline-flex items-center">
-          <a href="#"
-            class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
-            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z">
-              </path>
-            </svg>
-            Home
-          </a>
-        </li>
-        <li>
-          <div class="flex items-center">
-            <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path fillRule="evenodd"
-                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                clipRule="evenodd"></path>
-            </svg>
-            <a href="#"
-              class="ml-1 text-sm font-medium text-gray-700 hover:text-gray-900 md:ml-2 dark:text-gray-400 dark:hover:text-white">Templates</a>
-          </div>
-        </li>
-      </ol>
-    </nav> -->
-    <div class="flex flex-wrap my-5 -mx-2">
-      <button class="w-full lg:w-1/3 p-2" @click="router.push('/admin/freelancers'), choosen = 'F'">
+  
+    <div class="flex flex-wrap my-5 -mx-2" >
+      <button
+      v-if="user.user_type != 'freelancer'"
+       class="w-full lg:w-1/3 p-2" @click="user.user_type == 'admin' ?router.push('/admin/freelancers') : router.push(`/customer/${user.username}/freelancers`), choosen = 'F'"
+      :class="{'lg:w-1/2 md:w-1/2': user.user_type != 'admin'}"
+      >
         <div
-          class="flex items-center flex-row w-full bg-gradient-to-r rounded-md p-3  dark:from-cyan-500 dark:to-blue-500 from-indigo-500 via-purple-500 to-pink-500"
+          class="flex items-center flex-row w-full bg-gradient-to-r rounded-md p-3   from-indigo-500 via-purple-500 to-pink-500"
           >
           <div
-            class="flex items-center p-2 rounded-md flex-none w-8 h-8 md:w-12 md:h-12  text-indigo-500 dark:text-white  bg-white dark:bg-[#0F172A]"
+            class="flex items-center p-2 rounded-md flex-none w-8 h-8 md:w-12 md:h-12  text-indigo-500  bg-white"
             :class="{ 'dark': mode,   }">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
               stroke="currentColor" class="object-scale-down transition duration-500">
@@ -182,10 +125,8 @@
           <div class="flex flex-col justify-around flex-grow ml-5 text-white">
             <div class="text-xs whitespace-nowrap">
               Freelancers
-              {{ choosen }}
             </div>
             <div class="">
-              100
             </div>
           </div>
           <div class=" flex items-center flex-none text-white">
@@ -197,11 +138,17 @@
           </div>
         </div>
       </button>
-      <button class="w-full md:w-1/2 lg:w-1/3 p-2" @click="router.push('/admin/customers'), choosen = 'C'">
+      <button 
+      v-if="user.user_type != 'customer'" 
+      class="w-full md:w-1/2 lg:w-1/3 p-2" 
+      :class="{'lg:w-1/2 md:w-1/2': user.user_type != 'admin'}"
+      @click="router.push('/admin/customers'), 
+      
+      choosen = 'C'">
         <div
-          class="flex items-center flex-row w-full bg-gradient-to-r dark:from-cyan-500 dark:to-blue-500 from-indigo-500 via-purple-500 to-pink-500 rounded-md p-3">
+          class="flex items-center flex-row w-full bg-gradient-to-r  from-indigo-500 via-purple-500 to-pink-500 rounded-md p-3">
           <div
-            class="flex text-indigo-500 dark:text-white items-center bg-white dark:bg-[#0F172A] p-2 rounded-md flex-none w-8 h-8 md:w-12 md:h-12 ">
+            class="flex text-indigo-500 items-center bg-white p-2 rounded-md flex-none w-8 h-8 md:w-12 md:h-12 ">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
               stroke="currentColor" class="object-scale-down transition duration-500">
               <path strokeLinecap="round" strokeLinejoin="round"
@@ -213,7 +160,6 @@
               Customers
             </div>
             <div class="">
-              500
             </div>
           </div>
           <div class=" flex items-center flex-none text-white">
@@ -225,11 +171,16 @@
           </div>
         </div>
       </button>
-      <button class="w-full md:w-1/2 lg:w-1/3 p-2 " @click="router.push('/admin/jobs'), choosen = 'J'">
+      <button 
+      class="w-full md:w-1/2 lg:w-1/3 p-2 " 
+      :class="{'lg:w-1/2 md:w-1/2': user.user_type != 'admin'}"
+      @click="user.user_type == 'admin' ?router.push('/admin/jobs') : router.push(`/customer/${user.username}/jobs`), choosen = 'J'"
+      >
+      
         <div
-          class="flex items-center flex-row w-full bg-gradient-to-r dark:from-cyan-500 dark:to-blue-500 from-indigo-500 via-purple-500 to-pink-500 rounded-md p-3">
+          class="flex items-center flex-row w-full bg-gradient-to-r  from-indigo-500 via-purple-500 to-pink-500 rounded-md p-3">
           <div
-            class="flex text-indigo-500 dark:text-white items-center bg-white dark:bg-[#0F172A] p-2 rounded-md flex-none w-8 h-8 md:w-12 md:h-12 ">
+            class="flex text-indigo-500 items-center bg-white p-2 rounded-md flex-none w-8 h-8 md:w-12 md:h-12 ">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
               stroke="currentColor" class="object-scale-down transition duration-500 ">
               <path strokeLinecap="round" strokeLinejoin="round"
@@ -241,7 +192,6 @@
               Jobs
             </div>
             <div class="">
-              500
             </div>
           </div>
           <div class=" flex items-center flex-none text-white">
@@ -260,7 +210,7 @@
   
 <script setup>
 import router from '@/router';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
 
 
@@ -269,22 +219,23 @@ const logOut = () => {
   store.dispatch("auth/log_out")
 }
 const choosen = ref('F')
+const user = computed(()=>store.state.auth.user)
+console.log(user.value, "val");
+// const mode = ref(true)
 
-const mode = ref(true)
-
-const setDark = (val) => {
-  mode.value = !mode.value
-  if (val === "dark") {
-    console.log(mode.value);
-    // document.documentElement.classList.add('dark')
-    // moon.classList.add("hidden")
-    // sun.classList.remove("hidden")
-  } else {
-    // document.documentElement.classList.remove('dark')
-    // sun.classList.add("hidden")
-    // moon.classList.remove("hidden")
-    console.log(mode.value);
-  }
-}
+// const setDark = (val) => {
+//   mode.value = !mode.value
+//   if (val === "dark") {
+//     console.log(mode.value);
+//     // document.documentElement.classList.add('dark')
+//     // moon.classList.add("hidden")
+//     // sun.classList.remove("hidden")
+//   } else {
+//     // document.documentElement.classList.remove('dark')
+//     // sun.classList.add("hidden")
+//     // moon.classList.remove("hidden")
+//     console.log(mode.value);
+//   }
+// }
 </script>
   

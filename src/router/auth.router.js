@@ -1,5 +1,5 @@
-import SignIn from "../views/authentication/SignIn"
-import SignUp from "../views/authentication/SignUp"
+import SignIn from "@/views/authentication/SignIn.vue"
+import SignUp from "@/views/authentication/SignUp.vue"
 export default [
     {
         path: '/',

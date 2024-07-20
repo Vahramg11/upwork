@@ -42,8 +42,8 @@
                             class="text-black p-2 text-center rounded-lg text-sm  shadow-lg mb-4 border-solid border border-indigo-600"
                             >
                             {{ skill.name }}
-                            <button type="button" @click="remove_skill(skill.id)"
-                                class="end-2.5 text-gray-400 bg-transparent hover:text-gray-900 rounded p-1 text-sm ms-auto inline-flex justify-center items-center  dark:hover:text-white"
+                            <button v-if="user.user_type != 'customer'" type="button" @click="remove_skill(skill.id)"
+                                class="end-2.5 text-gray-400 bg-transparent hover:text-gray-900 rounded p-1 text-sm ms-auto inline-flex justify-center items-center"
                                 data-modal-hide="authentication-modal">
                                 <svg class="w-2 h-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                                     viewBox="0 0 14 14">
@@ -55,7 +55,7 @@
                         </div>
 
 
-                        <AddSkills />
+                        <AddSkills  v-if="user.user_type!='customer'" />
 
                     </div>
                 </div>
@@ -65,21 +65,21 @@
                 <div class="bg-white p-4 rounded-lg shadow mb-4">
                     <div class="flex items-center mb-3">
                         <h6 class="text-sm font-semibold mr-2">First Name</h6>
-                        <span :contenteditable="true" @blur="change_values('first_name', $event.target.innerText)">{{
+                        <span :contenteditable="editable()" @blur="change_values('first_name', $event.target.innerText)">{{
                             freelancer.first_name }}</span>
 
                     </div>
                     <hr>
                     <div class="flex items-center mb-3">
                         <h6 class="text-sm font-semibold mr-2">Last Name</h6>
-                        <span :contenteditable="true" @blur="change_values('last_name', $event.target.innerText)">{{
+                        <span :contenteditable="editable()" @blur="change_values('last_name', $event.target.innerText)">{{
                             freelancer.last_name }}</span>
 
                     </div>
                     <hr class="my-2">
                     <div class="flex items-center mb-3">
                         <h6 class="text-sm font-semibold mr-2">Email</h6>
-                        <span :contenteditable="true" @blur="change_values('email', $event.target.innerText)">{{
+                        <span :contenteditable="editable()" @blur="change_values('email', $event.target.innerText)">{{
                             freelancer.email }}</span>
                     </div>
                     <hr class="my-2">
@@ -93,7 +93,7 @@
                     <div v-if="freelancer.salary" class="flex items-start mb-3 ">
                         <h6 class="text-sm font-semibold mr-2">salary</h6>
                         <span>
-                            <span :contenteditable="true" @blur="change_values('salary', $event.target.innerText)">{{
+                            <span :contenteditable="editable()" @blur="change_values('salary', $event.target.innerText)">{{
                                 freelancer.salary }}</span>
                             $
                         </span>
@@ -101,7 +101,7 @@
                         <hr class="my-2">
                         <hr class="my-2">
                     </div>
-                    <div class="mt-4 flex">
+                    <div class="mt-4 flex" v-if="editable()">
                         <button @click="edit" class="bg-[#3813db] text-white px-4 py-2 rounded-lg shadow">Edit</button>
                     </div>
                 </div>
@@ -126,8 +126,8 @@
                             <div class="flex items-center ml-auto">
                                 <span class="text-gray-600 ml-2 text-xs sm:text-sm">{{ proj.process }}</span>
                             </div>
-                            <div>
-                                <select @change="change_job_status($event, proj)"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 ml-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <div v-if="user.user_type != 'customer'">
+                                <select @change="change_job_status($event, proj)"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 ml-2">
                                     <option  v-for="elm,i in job_types" :value="elm[1]" :key="i">{{ elm[1] }}</option>
                                 </select>
                             </div>
@@ -149,6 +149,7 @@ import * as Yup from 'yup';
 import AddSkills from '../modals/AddSkills.vue';
 const store = useStore()
 const toast = useToast();
+const user = computed(()=>store.state.auth.user)
 const showSuccess = () => {
     toast.add({ severity: 'success', summary: 'Success Message', detail: 'Message Content', life: 3000 });
 };
@@ -161,8 +162,20 @@ const showError = () => {
 
 const router = useRoute().params
 
+const editable = ()=>{
+    return user.value.user_type != "customer"
+}
+
 onMounted(() => {
-    store.dispatch("admin/req_one_freelancer", router.username)
+    console.log(store.state.auth.user.user_type);
+    if(store.state.auth.user.user_type == 'admin'){
+
+        store.dispatch("admin/req_one_freelancer", router.username)
+    }else if(store.state.auth.user.user_type == 'customer'){
+        store.dispatch("admin/req_one_freelancer", router.freelancerUsername)
+
+    }
+    
 
 })
 const freelancer = computed(() => store.getters["admin/get_one_freelancer"])

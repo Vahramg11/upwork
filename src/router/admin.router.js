@@ -11,12 +11,12 @@ export default [
             {
                 path: "freelancers",
                 component: ()=>import("@/components/options/FreelancerOption.vue"),
-                name: "freelancers",
+                name: "freelancerss",
             },
             {
                 path: "customers",
                 component: ()=>import("@/components/options/CustomOption.vue"),
-                name: "custoemrs",
+                name: "customers",
             },
             {
                 path: "freelancer/:username",
@@ -35,7 +35,10 @@ export default [
                 component: ()=>import("@/components/options/JobOption.vue")
             }
         ],
-        component: ()=>import("@/views/admin/AdminPage.vue"),
+        component: ()=>import("@/views/admin/AdminPage.vue"), 
+        meta: {
+            check_user: true
+        }
         
     },
     // {
@@ -44,3 +47,4 @@ export default [
     //     name: 'freelancer-info'
     // }
 ]
+

@@ -12,14 +12,14 @@
         class="overflow-y-auto overflow-x-hidden absolute w-full inset-0 h-[calc(100%-1rem)] max-h-full ">
         <div class="absolute p-4 w-full max-w-md max-h-full top-0 left-0 right-0 bottom-0 m-auto ">
             <!-- Modal content -->
-            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <div class="relative bg-white rounded-lg shadow">
                 <!-- Modal header -->
-                <div class="flex items-center justify-between p-5 border-b rounded-t dark:border-gray-600">
-                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                <div class="flex items-center justify-between p-5 border-b rounded-t ">
+                    <h3 class="text-xl font-semibold text-gray-900 ">
                         Choose your skills
                     </h3>
                     <button type="button" @click="toggle_modal"
-                        class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                        class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center "
                         data-modal-hide="authentication-modal">
                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 14 14">
@@ -44,7 +44,7 @@
 
                         </div>
                         <button type="submit"
-                            class="focus:border-black border-[1px] text-center text-white flex items-center flex-row w-full bg-gradient-to-r dark:from-cyan-500 dark:to-blue-500 from-indigo-500 via-purple-500 to-pink-500 rounded-md p-3">
+                            class="focus:border-black border-[1px] text-center text-white flex items-center flex-row w-full bg-gradient-to-r  from-indigo-500 via-purple-500 to-pink-500 rounded-md p-3">
                             Submit
                         </button>
                     </form>

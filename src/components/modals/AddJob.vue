@@ -12,13 +12,13 @@
     <div id="authentication-modal" tabindex="-1" aria-hidden="true" :class="{ 'hidden': modal }"
         class="overflow-y-auto overflow-x-hidden absolute w-full inset-0 h-[calc(100%-1rem)] max-h-full ">
         <div class="absolute p-4 w-full max-w-md max-h-full top-0 left-0 right-0 bottom-0 m-auto ">
-            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                <div class="flex items-center justify-between p-5 border-b rounded-t dark:border-gray-600">
-                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+            <div class="relative bg-white rounded-lg shadow">
+                <div class="flex items-center justify-between p-5 border-b rounded-t ">
+                    <h3 class="text-xl font-semibold text-gray-900 ">
                         Sign in to our platform
                     </h3>
                     <button type="button" @click="toggle_modal"
-                        class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                        class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
                         data-modal-hide="authentication-modal">
                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 14 14">
@@ -32,27 +32,27 @@
                     <form class="space-y-4" @submit.prevent="req_data_job">
                         <div>
                             <label for="name"
-                                class="text-left block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
+                                class="text-left block mb-2 text-sm font-medium text-gray-900 ">Title</label>
                             <input type="text" name="name" id="name" v-model="name" v-bind="nameAttrs"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white "
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-500 dark:placeholder-gray-400  "
                                 placeholder="job title..." />
                             <p>{{ errors.name }}</p>
                         </div>
 
                         <div>
                             <label for="description"
-                                class="text-left block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                                class="text-left block mb-2 text-sm font-medium text-gray-900 ">Description</label>
                             <input type="text" name="description" id="description" v-model="description" v-bind="descriptionAttrs"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white "
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-500 dark:placeholder-gray-400  "
                                 placeholder="job description..." />
                             <p>{{ errors.description }}</p>
                         </div>
 
                         <div>
                             <label for="experience"
-                                class="text-left block mb-2 text-sm font-medium text-gray-900 dark:text-white">Experience</label>
+                                class="text-left block mb-2 text-sm font-medium text-gray-900 ">Experience</label>
                             <input type="number" name="experience" id="experience" v-model="experience" v-bind="experienceAttrs"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white "
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-500 dark:placeholder-gray-400  "
                                 placeholder="experience..." />
                             <p>{{ errors.experience }}</p>
                         </div>

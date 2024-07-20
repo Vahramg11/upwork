@@ -42,7 +42,6 @@ console.log(jobs);
 
 onMounted(() => {
     store.dispatch("admin/req_all_jobs")
-
 })
 
 </script>

@@ -103,7 +103,7 @@ const { handleSubmit, errors, defineField, resetForm } = useForm({
 });
 const onsumbit = handleSubmit(values => {
     store.dispatch("auth/sign_in", values)
-    resetForm()
+    resetForm
 })
 
 const [username, usernameAttrs] = defineField('username');

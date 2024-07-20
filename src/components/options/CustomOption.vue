@@ -5,7 +5,7 @@
       <!-- Image and Name -->
       <div class="relative">
         <img v-if="custom.photo" class="object-cover h-64 w-full rounded-t-lg" :src="'http://127.0.0.1:8000' + custom.photo" alt="Profile Image">
-        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-transparent to-transparent py-2 px-4 text-white">
+        <div class="absolute bottom-0 left-0 right-0 from-black via-transparent to-transparent py-2 px-4 text-white">
           <h3 class="font-bold text-xl">{{ custom.first_name }} {{ custom.last_name }}</h3>
         </div>
       </div>
@@ -14,10 +14,10 @@
       <div class="px-4 py-4">
         <!-- Email -->
         <div class="flex items-center mb-2">
-          <svg class="h-5 w-5 text-gray-400 dark:text-gray-600 mr-1" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+          <svg class="h-5 w-5 text-gray-400  mr-1" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
             <path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z" />
           </svg>
-          <p class="text-gray-700 dark:text-gray-300">{{ custom.email }}</p>
+          <p class="text-gray-700">{{ custom.email }}</p>
         </div>
         
         <!-- Buttons -->
