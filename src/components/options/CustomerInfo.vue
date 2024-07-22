@@ -159,6 +159,7 @@ const edit = () => {
 
 const handleFileUpload = (e) => {
     console.log(e.target.files[0]);
+    store.dispatch("admin/change_image",e.target.files[0] )
 }
 
 

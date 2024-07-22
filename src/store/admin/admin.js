@@ -94,6 +94,22 @@ export default {
       commit("delete_customer", id);
     },
 
+    async change_image({state, commit}, image){
+     
+      const formData = new FormData();
+      formData.append("photo", image);
+      const {data} = await Axios.patch(`change_image/customer/${state.one_customer['id']}/`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      console.log(data);
+      commit("change_customer_image", data.photo_url)
+
+
+
+    },
+
     // *************jobs***************
 
     async req_all_jobs({ commit }) {
@@ -155,6 +171,10 @@ export default {
     },
     add_job_to_customer(state, data) {
       state.one_customer.jobs.push(data);
+    },
+
+    change_customer_image(state, data){
+      state.one_customer.photo = data
     },
     // *************jobs**************
 
