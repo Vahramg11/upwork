@@ -8,14 +8,14 @@ from .models import Freelancer, Skills, Profession
 
 
 class FreelancerSerializer(serializers.ModelSerializer):
-    # user_type = serializers.SerializerMethodField()
+    user_type = serializers.SerializerMethodField()
 
     class Meta:
         model = Freelancer
-        fields = ["id", "first_name", "last_name", "username", "email", "photo"]
+        fields = ["id", "first_name", "last_name", "username", "email", "photo", "user_type"]
 
-    # def get_user_type(self, data):
-    #     return data.get_user_type_display()
+    def get_user_type(self, data):
+        return data.get_user_type_display()
 
 
 class SkillsSerializer(serializers.ModelSerializer):
@@ -49,6 +49,8 @@ class FreelancerDetails(FreelancerSerializer):
     def get_profession(self, obj):
         print(obj.profession)
         return obj.profession.name if obj.profession else None
+
+
 
 
 class ChangeFreelancerInfo(serializers.ModelSerializer):

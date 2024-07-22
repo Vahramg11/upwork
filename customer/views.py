@@ -46,6 +46,18 @@ class CustomerStaff(viewsets.ViewSet):
         except Exception as e:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
+    @action(methods=["PATCH"], detail=True)
+    def change_customer_image(self, request, pk):
+        print(request.FILES, pk)
+        customer = get_object_or_404(Customer, id=pk)
+        if 'photo' in request.FILES:
+            customer.photo = request.FILES['photo']
+            customer.save()
+            print("hello url", customer.photo.url)
+            return Response({'status': 'success', 'message': 'Photo uploaded successfully', 'photo_url': customer.photo.url}, status=status.HTTP_200_OK)
+
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
 
 
 
