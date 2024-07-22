@@ -78,5 +78,17 @@ class FreelancerStaff(viewsets.ViewSet):
         user.skills.remove(pk)
         return Response("hello", status=status.HTTP_200_OK)
 
+    @action(methods=["PATCH"], detail=True)
+    def change_freelancer_image(self, request, pk):
+        print(request.FILES, pk)
+        freelancer = get_object_or_404(Freelancer, id=pk)
+        if 'photo' in request.FILES:
+            freelancer.photo = request.FILES['photo']
+            freelancer.save()
+            print("hello url", freelancer.photo.url)
+            return Response({'status': 'success', 'message': 'Photo uploaded successfully', 'photo_url': freelancer.photo.url}, status=status.HTTP_200_OK)
+
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
 
 
