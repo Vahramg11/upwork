@@ -39,5 +39,16 @@ router.beforeEach((from, to, next)=>{
   next()
   alert();
  }
+
+  console.log('===>')
 })
+
+
+
+
+
+
+
+
+
 export default router
