@@ -73,6 +73,18 @@ export default {
       console.log("dispatch", data);
     },
 
+    async change_free_image({state, commit}, image){
+     
+      const formData = new FormData();
+      formData.append("photo", image);
+      const {data} = await Axios.patch(`change_image/freelancer/${state.one_freelancer['id']}/`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      commit("change_freelancer_image", data.photo_url)
+    },
+
     // ***********customers***********
 
     async req_customers({ commit }) {
@@ -94,7 +106,7 @@ export default {
       commit("delete_customer", id);
     },
 
-    async change_image({state, commit}, image){
+    async change_cust_image({state, commit}, image){
      
       const formData = new FormData();
       formData.append("photo", image);
@@ -103,7 +115,6 @@ export default {
           'Content-Type': 'multipart/form-data'
         }
       })
-      console.log(data);
       commit("change_customer_image", data.photo_url)
 
 
@@ -151,6 +162,9 @@ export default {
     change_freelancer_job_status(state, data) {
       state.one_freelancer.jobs.find((elm) => elm.id == data.job.id).process =
         data.status;
+    },
+    change_freelancer_image(state, data){
+      state.one_freelancer.photo = data
     },
 
     // ***********customers************

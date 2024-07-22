@@ -218,18 +218,7 @@ const edit = () => {
 
 const handleFileUpload = (e) => {
     console.log(e.target.files[0]);
-
-
-    const formData = new FormData();
-    formData.append("photo", e.target.files[0]);
-
-    // let reader = new FileReader();
-    // reader.readAsDataURL(file);
-
-    // reader.onload = (e) => {
-    //     preview = e.target.result;
-    //     this.formData.append("file", this.preview);
-    // };
+    store.dispatch("admin/change_free_image",e.target.files[0] )
 }
 
 
