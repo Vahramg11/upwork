@@ -10,7 +10,7 @@
                                 class="rounded-full h-32 w-32 object-cover relative">
                             <div class="relative">
                                 <!-- File Input Button -->
-                                <label
+                                <label v-if="user.user_type != 'customer'"
                                     class="p-1 bg-[#45454538] rounded-full hover:bg-[#494848aa] active:shadow-lg mouse shadow transition ease-in duration-200 focus:outline-none absolute right-3 bottom-0 cursor-pointer">
                                     <input type="file" class="hidden" @change="handleFileUpload">
                                     <svg viewBox="0 0 20 20" enable-background="new 0 0 20 20" class="w-6 h-6 inline-block">
@@ -39,8 +39,7 @@
                     <h1 class="text-start mb-3 font-bold">Skills</h1>
                     <div class="flex flex-wrap gap-2">
                         <div v-for="skill in freelancer.skills" :key="skill.id"
-                            class="text-black p-2 text-center rounded-lg text-sm  shadow-lg mb-4 border-solid border border-indigo-600"
-                            >
+                            class="text-black p-2 text-center rounded-lg text-sm  shadow-lg mb-4 border-solid border border-indigo-600">
                             {{ skill.name }}
                             <button v-if="user.user_type != 'customer'" type="button" @click="remove_skill(skill.id)"
                                 class="end-2.5 text-gray-400 bg-transparent hover:text-gray-900 rounded p-1 text-sm ms-auto inline-flex justify-center items-center"
@@ -55,7 +54,7 @@
                         </div>
 
 
-                        <AddSkills  v-if="user.user_type!='customer'" />
+                        <AddSkills v-if="user.user_type != 'customer'" />
 
                     </div>
                 </div>
@@ -127,8 +126,9 @@
                                 <span class="text-gray-600 ml-2 text-xs sm:text-sm">{{ proj.process }}</span>
                             </div>
                             <div v-if="user.user_type != 'customer'">
-                                <select @change="change_job_status($event, proj)"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 ml-2">
-                                    <option  v-for="elm,i in job_types" :value="elm[1]" :key="i">{{ elm[1] }}</option>
+                                <select @change="change_job_status($event, proj)"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 ml-2">
+                                    <option v-for="elm, i in job_types" :value="elm[1]" :key="i">{{ elm[1] }}</option>
                                 </select>
                             </div>
                         </div>
@@ -149,7 +149,7 @@ import * as Yup from 'yup';
 import AddSkills from '../modals/AddSkills.vue';
 const store = useStore()
 const toast = useToast();
-const user = computed(()=>store.state.auth.user)
+const user = computed(() => store.state.auth.user)
 const showSuccess = () => {
     toast.add({ severity: 'success', summary: 'Success Message', detail: 'Message Content', life: 3000 });
 };
@@ -162,23 +162,23 @@ const showError = () => {
 
 const router = useRoute().params
 
-const editable = ()=>{
+const editable = () => {
     return user.value.user_type != "customer"
 }
 
 onMounted(() => {
     console.log(store.state.auth.user.user_type);
-    if(store.state.auth.user.user_type == 'admin'){
+    if (store.state.auth.user.user_type == 'admin') {
 
         store.dispatch("admin/req_one_freelancer", router.username)
-    }else if(store.state.auth.user.user_type == 'customer'){
+    } else if (store.state.auth.user.user_type == 'customer') {
         store.dispatch("admin/req_one_freelancer", router.freelancerUsername)
 
-    }else if (store.state.auth.user.user_type == 'freelancer'){
+    } else if (store.state.auth.user.user_type == 'freelancer') {
         store.dispatch("admin/req_one_freelancer", router.username)
 
     }
-    
+
 
 })
 const freelancer = computed(() => store.getters["admin/get_one_freelancer"])
@@ -217,6 +217,7 @@ const edit = () => {
 
 
 const handleFileUpload = (e) => {
+    alert()
     console.log(e.target.files[0]);
 }
 
@@ -224,9 +225,9 @@ const remove_skill = (id) => {
     store.commit('freelancer/remove_skills_from_developer', id)
     store.dispatch("freelancer/delete_skill_from_freelancer", id)
 }
-const change_job_status = (event, proj)=>{
-    store.commit("admin/change_freelancer_job_status", {job:proj, status: event.target.value })
-    store.dispatch("admin/change_freelancer_job_process", {id: proj.id, status: event.target.value})
+const change_job_status = (event, proj) => {
+    store.commit("admin/change_freelancer_job_status", { job: proj, status: event.target.value })
+    store.dispatch("admin/change_freelancer_job_process", { id: proj.id, status: event.target.value })
 }
 
 

@@ -12,6 +12,7 @@
                             <div class="relative">
                                 <!-- File Input Button -->
                                 <label
+                                v-if="user.user_type != 'freelancer'"
                                     class="p-1 bg-[#45454538] rounded-full hover:bg-[#494848aa] active:shadow-lg mouse shadow transition ease-in duration-200 focus:outline-none absolute right-3 bottom-0 cursor-pointer">
                                     <input type="file" class="hidden" @change="handleFileUpload">
                                     <svg viewBox="0 0 20 20" enable-background="new 0 0 20 20" class="w-6 h-6 inline-block">
@@ -116,6 +117,7 @@ onMounted(() => {
     store.dispatch("admin/req_one_customer", router.username)
 })
 const customer = computed(() => store.getters["admin/get_one_customer"])
+const user = computed(()=>store.state.auth.user)
 
 let values = {}
 const confirmed = ref(false)
