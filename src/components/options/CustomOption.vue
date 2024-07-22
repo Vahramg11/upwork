@@ -25,7 +25,7 @@
           <button @click="get_one(custom.username)" class="flex-1 rounded-lg bg-indigo-500 text-white font-semibold hover:bg-[#371f9e] px-6 py-2">
             Info
           </button>
-          <button @click="delete_customer(custom.id)" class="flex-1 rounded-lg bg-pink-500 text-white font-semibold hover:bg-[#f8223b] px-6 py-2">
+          <button v-if='store.state.auth.user.user_type == "admin"' @click="delete_customer(custom.id)" class="flex-1 rounded-lg bg-pink-500 text-white font-semibold hover:bg-[#f8223b] px-6 py-2">
             Delete
           </button>
         </div>

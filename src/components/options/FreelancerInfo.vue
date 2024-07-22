@@ -174,6 +174,9 @@ onMounted(() => {
     }else if(store.state.auth.user.user_type == 'customer'){
         store.dispatch("admin/req_one_freelancer", router.freelancerUsername)
 
+    }else if (store.state.auth.user.user_type == 'freelancer'){
+        store.dispatch("admin/req_one_freelancer", router.username)
+
     }
     
 
@@ -225,6 +228,7 @@ const change_job_status = (event, proj)=>{
     store.commit("admin/change_freelancer_job_status", {job:proj, status: event.target.value })
     store.dispatch("admin/change_freelancer_job_process", {id: proj.id, status: event.target.value})
 }
+
 
 </script>
 

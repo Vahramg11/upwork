@@ -36,7 +36,6 @@ const router = createRouter({
   routes,
 });
 console.log(adminRouter);
-store
 
 router.beforeEach(async (to, from, next) => {
   if (to.meta.check_user) {
@@ -49,6 +48,7 @@ router.beforeEach(async (to, from, next) => {
   }else{
     next()
   }
+  
 });
 
 export default router;

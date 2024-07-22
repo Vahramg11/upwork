@@ -1,17 +1,12 @@
 <template>
     <div>
         <AdminMenu/>
-        "hello free"
-
+        <router-view/>
     </div>
 </template>
 
 <script setup>
 import AdminMenu from "@/components/menu/AdminMenu.vue"
-import {onMounted} from "vue"
 
-onMounted(()=>{
-    alert("free")
-})
 
 </script>

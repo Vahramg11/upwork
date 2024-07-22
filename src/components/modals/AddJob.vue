@@ -1,5 +1,9 @@
 
 <template>
+    <div v-if="user.user_type != 'freelancer'">
+
+
+    
     <div class="flex justify-start">
         <button type="button" data-modal-target="authentication-modal" data-modal-toggle="authentication-modal"
             @click="toggle_modal"
@@ -69,10 +73,11 @@
             </div>
         </div>
     </div>
+</div>
 </template>  
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useStore } from 'vuex';
 import { useForm } from 'vee-validate';
 import * as yup from "yup"
@@ -84,6 +89,7 @@ const { handleSubmit, resetForm, errors, defineField } = useForm({
     })
 })
 const store = useStore()
+const user = computed(()=>store.state.auth.user)
 const modal = ref(true)
 const toggle_modal = () => {
     modal.value = !modal.value

@@ -28,8 +28,9 @@
     <!-- MAX SIDEBAR-->
     <div class="max hidden text-white mt-20 flex-col space-y-2 w-full h-[calc(100vh)]">
       <div
+      
         class="hover:ml-4 w-full text-white hover:text-purple-500 bg-[#1E293B] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center space-x-3">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
+        <svg  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
           class="w-4 h-4">
           <path strokeLinecap="round" strokeLinejoin="round"
             d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
@@ -65,11 +66,14 @@
     <div class="mini mt-20 flex flex-col space-y-2 w-full h-[calc(100vh)]">
       <div
         class="hover:ml-4 justify-end pr-5 text-white hover:text-purple-500 w-full bg-[#1E293B] p-3 rounded-full transform ease-in-out duration-300 flex">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
+        <button @click="back">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
           class="w-4 h-4">
           <path strokeLinecap="round" strokeLinejoin="round"
             d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
         </svg>
+        </button>
+        
       </div>
 
 
@@ -107,15 +111,19 @@
     <div class="flex flex-wrap my-5 -mx-2" >
       <button
       v-if="user.user_type != 'freelancer'"
-       class="w-full lg:w-1/3 p-2" @click="user.user_type == 'admin' ?router.push('/admin/freelancers') : router.push(`/customer/${user.username}/freelancers`), choosen = 'F'"
-      :class="{'lg:w-1/2 md:w-1/2': user.user_type != 'admin'}"
+      class="w-full md:w-1/2 lg:w-1/2 p-2"
+  :class="{
+    'lg:w-1/2 md:w-1/2 w-full': user.user_type != 'admin',
+    'lg:w-1/3 md:w-1/2 w-full': user.user_type == 'admin'
+  }"
+        @click="user.user_type == 'admin' ?router.push('/admin/freelancers') : router.push(`/customer/${user.username}/freelancers`), choosen = 'F'"
       >
         <div
           class="flex items-center flex-row w-full bg-gradient-to-r rounded-md p-3   from-indigo-500 via-purple-500 to-pink-500"
           >
           <div
             class="flex items-center p-2 rounded-md flex-none w-8 h-8 md:w-12 md:h-12  text-indigo-500  bg-white"
-            :class="{ 'dark': mode,   }">
+            >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
               stroke="currentColor" class="object-scale-down transition duration-500">
               <path strokeLinecap="round" strokeLinejoin="round"
@@ -140,8 +148,11 @@
       </button>
       <button 
       v-if="user.user_type != 'customer'" 
-      class="w-full md:w-1/2 lg:w-1/3 p-2" 
-      :class="{'lg:w-1/2 md:w-1/2': user.user_type != 'admin'}"
+      class="w-full md:w-1/2 lg:w-1/2 p-2"
+  :class="{
+    'lg:w-1/2 md:w-1/2 w-full': user.user_type != 'admin',
+    'lg:w-1/3 md:w-1/2 w-full': user.user_type == 'admin'
+  }"
       @click="router.push('/admin/customers'), 
       
       choosen = 'C'">
@@ -172,8 +183,11 @@
         </div>
       </button>
       <button 
-      class="w-full md:w-1/2 lg:w-1/3 p-2 " 
-      :class="{'lg:w-1/2 md:w-1/2': user.user_type != 'admin'}"
+      class="w-full md:w-1/2 lg:w-1/2 p-2"
+  :class="{
+    'lg:w-1/2 md:w-1/2 w-full': user.user_type != 'admin',
+    'lg:w-1/3 md:w-1/2 w-full': user.user_type == 'admin'
+  }"
       @click="user.user_type == 'admin' ?router.push('/admin/jobs') : router.push(`/customer/${user.username}/jobs`), choosen = 'J'"
       >
       
@@ -221,6 +235,15 @@ const logOut = () => {
 const choosen = ref('F')
 const user = computed(()=>store.state.auth.user)
 console.log(user.value, "val");
+
+const back = ()=>{
+  if(store.state.auth.user.user_type != "admin"){
+
+    router.push(`/${store.state.auth.user.user_type}/${store.state.auth.user.username}`)
+  }else{
+    router.push(`/admin/freelancers`)
+  }
+}
 // const mode = ref(true)
 
 // const setDark = (val) => {

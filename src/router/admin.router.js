@@ -41,10 +41,6 @@ export default [
         }
         
     },
-    // {
-    //     path: "/freelancer/:username",
-    //     component: FreelancerInfo,
-    //     name: 'freelancer-info'
-    // }
+
 ]
 

@@ -6,12 +6,12 @@ export default [
     name: "customer",
     component: CustomerPage,
     children: [
-        {
-            path: "",
-            component: import("@/components/options/CustomerInfo.vue"),
-            name: 'defaultt'
+      {
+        path: "",
+        component: import("@/components/options/CustomerInfo.vue"),
+        name: 'defaultt'
 
-        },
+      },
 
       {
         path: "freelancers",
@@ -24,25 +24,22 @@ export default [
         component: () => import("@/components/options/JobOption.vue"),
         name: "jobss"
       },
-    //   {
-    //     path: "freelancer-info/:freelancerUsername",
-    //     name: "customer-freelancer-info",
-    //     component: FreelancerInfo,
-    //   },
 
-    {
+
+      {
         path: "freelancer-info/:freelancerUsername",
         name: "customer-freelancer-info",
         component: FreelancerInfo,
-    },
+        
+      },
     ],
 
-    
+
 
     meta: {
       check_user: true,
     },
   },
 
-  
+
 ];

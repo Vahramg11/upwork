@@ -49,6 +49,7 @@ export default {
       commit("change_freelancers", data);
     },
     async req_one_freelancer({ commit, dispatch }, username) {
+      console.log("this isusernmae");
       const { data } = await Axios.get(`freelancer/${username}/`);
       console.log(data);
       commit("change_one_freelancer", data.data);
@@ -85,7 +86,7 @@ export default {
     },
 
     async change_customer_info(_, obj) {
-      await Axios.patch(`change_info/freelancer/${obj.id}/`, obj);
+      await Axios.patch(`change_info/customer/${obj.id}/`, obj);
     },
 
     async remove_customer({ commit }, id) {
