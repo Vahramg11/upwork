@@ -6,7 +6,7 @@
       class="max-toolbar translate-x-24 scale-x-0 w-full -right-6 transition transform ease-in duration-300 flex items-center justify-between border-4 border-white  bg-[#1E293B]  absolute top-2 rounded-full h-12">
 
     </div>
-    <div @click="setDark('dark')" :class="{ 'hidden': mode }"
+    <div
       class="moon text-white hover:text-blue-500  -right-6 transition transform ease-in-out duration-500 flex border-4 border-white  bg-[#1E293B]  absolute top-2 p-3 rounded-full hover:rotate-45">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor"
         class="w-4 h-4">

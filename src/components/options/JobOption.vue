@@ -17,14 +17,19 @@
                     <p class="overflow-hidden pr-7 text-sm">{{ elm.description }}</p>
 
                     <div
-                        class="mt-5 flex flex-col space-y-3 text-sm font-medium text-gray-500 sm:flex-row sm:items-center sm:space-y-0 sm:space-x-2">
+                        class="mt-5 flex justify-between space-y-3 text-sm font-medium text-gray-500 sm:flex-row sm:items-center sm:space-y-0 sm:space-x-2">
                         <div class="">Experience:<span
                                 class="ml-2 mr-3 rounded-full bg-green-100 px-2 py-0.5 text-green-900"> {{ elm.experience }}
                                 Years </span>
                         </div>
-                        <!-- <div class="">Salary:<span
-                                class="ml-2 mr-3 rounded-full bg-blue-100 px-2 py-0.5 text-blue-900">180-250k</span>
-                        </div> -->
+
+                        <button
+                        v-if="user.user_type=='freelancer'"
+                         type="button" 
+                         class="text-blue-700 hover:text-white border border-blue-700 hover:bg-[#0c4af391] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-1.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">
+                         Apply
+                        </button>
+
                     </div>
                 </div>
             </div>
@@ -36,6 +41,7 @@
 import { onMounted, computed } from 'vue';
 import { useStore } from 'vuex';
 const store = useStore()
+const user = computed(()=>store.state.auth.user)
 const jobs = computed(() => store.state.admin.jobs)
 console.log(jobs);
 

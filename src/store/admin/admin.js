@@ -116,9 +116,6 @@ export default {
         }
       })
       commit("change_customer_image", data.photo_url)
-
-
-
     },
 
     // *************jobs***************
