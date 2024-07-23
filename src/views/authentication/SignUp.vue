@@ -1,13 +1,11 @@
 <template>
     <section class="bg-white">
         <div class="flex justify-center min-h-screen">
-            <div class="hidden bg-cover lg:block lg:w-2/5"
-                style="background-image: url('https://images.unsplash.com/photo-1494621930069-4fd4b2e24a11?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=715&q=80')">
-            </div>
+            <div class="hidden bg-cover lg:block lg:w-2/5 sign_up"></div>
 
             <div class="flex items-center w-full max-w-3xl p-8 mx-auto lg:px-12 lg:w-3/5">
                 <div class="w-full">
-                    <h1 class="text-2xl font-semibold tracking-wider text-gray-800 capitalize">
+                    <!-- <h1 class="text-2xl font-semibold tracking-wider text-gray-800 capitalize">
                         Get your free account now.
                     </h1>
 
@@ -20,7 +18,7 @@
 
 
                     </div>
-                    <br>
+                    <br> -->
 
 
                     <form class="grid grid-cols-1 gap-6 mt-8 md:grid-cols-2 justify-center items-center" @submit.prevent="onsubmit">
@@ -214,3 +212,15 @@ onMounted(() => {
 })
 
 </script>
+
+
+<style scoped>
+.sign_up{
+background-image: url("../../assets/reg/login-image.webp");
+background-position: 45% 75%;
+background-repeat: no-repeat;
+background-size: contain;
+
+}
+
+</style>
