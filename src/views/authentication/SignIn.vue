@@ -50,9 +50,9 @@
 
 
                             <div class="text-sm">
-                                <a href="jajvascript:void(0);" class="text-blue-600 hover:underline font-semibold">
+                                <router-link :to="{name: 'forget'}" class="text-blue-600 hover:underline font-semibold">
                                     Forgot your password?
-                                </a>
+                                </router-link>
                             </div>
                         </div>
 

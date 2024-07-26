@@ -64,8 +64,8 @@ export default {
         config
       );
       console.log(data);
-      VueCookies.remove("access");
-      VueCookies.remove("refresh");
+      VueCookies.remove("access", { secure: true });
+      VueCookies.remove("refresh", { secure: true } );
       router.push("/");
     },
 

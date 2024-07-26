@@ -4,11 +4,30 @@ export default [
     {
         path: '/',
         name: 'sign_in',
-        component: SignIn
+        component: SignIn,
+        meta:{
+            auth: true,
+            twice: true
+        }
     },
     {
         path: '/sign_up',
         name: 'sign_up',
-        component: SignUp
+        component: SignUp,
+        meta:{
+            auth: true,
+            twice: true
+
+        }
+    },
+    {
+        path: "/forget_password",
+        name: 'forget',
+        component: ()=>import("@/views/authentication/ForgetPassword.vue")
+    },
+    {
+        path: "/confirm/:token/:id",
+        name: "confirm", 
+        component: ()=>import("@/views/authentication/ChangePassword.vue")
     }
 ];

@@ -43,7 +43,7 @@ export default {
     },
   },
   actions: {
-    // ************frelancers*************
+    // ************freelancers*************
     async req_freelancers({ commit }) {
       const { data } = await Axios.get("freelancers/");
       commit("change_freelancers", data);
