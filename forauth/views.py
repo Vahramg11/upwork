@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
 from django.shortcuts import render, get_object_or_404
 from rest_framework import viewsets, status
 from rest_framework.decorators import action, permission_classes
@@ -18,6 +19,8 @@ from customer.forms import CustomerForm
 
 from freelancer.models import Profession
 from freelancer.serializers import ProfessionsSerializer
+
+from upwork import settings
 
 
 # Create your views here.
@@ -45,6 +48,7 @@ class Registration(viewsets.ViewSet):
 
     @action(method=["POST"], detail=False)
     def log_out(self, request):
+        print("refreshhshsh", request.data)
         try:
             refresh_token = request.data.get('refresh')
             token = RefreshToken(refresh_token)
@@ -81,3 +85,6 @@ class Registration(viewsets.ViewSet):
         skills = Profession.objects.all()
         serial = ProfessionsSerializer(instance=skills, many=True)
         return Response(data=serial.data, status=status.HTTP_200_OK)
+
+
+

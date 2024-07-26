@@ -41,11 +41,14 @@ INSTALLED_APPS = [
     "corsheaders",
     'drf_yasg',
     "rest_framework",
+    'django_rest_passwordreset',
     'forauth',
     "adminka",
     "customer",
     "freelancer",
-    "job"
+    "job",
+
+
 ]
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -68,12 +71,14 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080",
     "http://127.0.0.1:9000",
 ]
+
+
 ROOT_URLCONF = 'upwork.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -178,3 +183,11 @@ SIMPLE_JWT = {
 }
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+PASSWORD_RESET_TIMEOUT = 1800
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'vsaribekyan647@gmail.com'
+EMAIL_HOST_PASSWORD = 'wcobgubwakgwbsuy'

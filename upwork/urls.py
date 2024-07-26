@@ -29,6 +29,7 @@ from rest_framework_simplejwt.views import (
 )
 
 
+
 schema_view = get_schema_view(
     openapi.Info(
         title="My API",
@@ -54,5 +55,8 @@ urlpatterns = [
     path("", include("job.urls")),
     path("", include("freelancer.urls")),
     path("", include("customer.urls")),
+    path('api/password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
+
+
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

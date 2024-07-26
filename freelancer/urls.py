@@ -10,5 +10,4 @@ urlpatterns = [
     path("skills/<int:pk>/", FreelancerStaff.as_view({"get": "get_skills"})),
     path("skills/remove/<str:username>/<int:pk>/", FreelancerStaff.as_view({"delete": "remove_skill_from_freelancer"})),
     path("change_image/freelancer/<int:pk>/", FreelancerStaff.as_view({"patch": "change_freelancer_image"})),
-
 ]
