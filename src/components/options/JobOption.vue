@@ -17,20 +17,35 @@
                     <p class="overflow-hidden pr-7 text-sm">{{ elm.description }}</p>
 
                     <div
-                        class="mt-5 flex justify-between space-y-3 text-sm font-medium text-gray-500 sm:flex-row sm:items-center sm:space-y-0 sm:space-x-2">
+                        class="mt-5 flex  space-y-3 text-sm font-medium text-gray-500 sm:flex-row sm:items-center sm:space-y-0 sm:space-x-2">
                         <div class="">Experience:<span
                                 class="ml-2 mr-3 rounded-full bg-green-100 px-2 py-0.5 text-green-900"> {{ elm.experience }}
                                 Years </span>
                         </div>
 
-                        <button
-                        v-if="user.user_type=='freelancer'"
-                         type="button" 
-                         class="text-blue-700 hover:text-white border border-blue-700 hover:bg-[#0c4af391] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-1.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">
-                         Apply
-                        </button>
+                        <div class="">Salary:<span
+                                class="ml-2 mr-3 rounded-full bg-blue-100 px-2 py-0.5 text-blue-900"> {{ elm.price }}
+                                 $ </span>
+                        </div>
+
+                        
+                    </div>
+
+                    <div v-if="elm.skills.length" class="flex flex-wrap gap-2 mt-5">
+
+                        <div v-for="skill in elm.skills" :key="skill.id"
+                        class="text-black p-1.5  text-center  rounded-lg text-sm  shadow-lg mb-4 border border-indigo-600">
+
+                         {{ skill.name }}</div>
+
 
                     </div>
+                    <button
+                    v-if="user.user_type=='freelancer'"
+                     type="button" 
+                     class="w-1/4 text-dark hover:text-white border border-green-500 hover:bg-[#38d46f] focus:border-pink-700 focus:outline-none font-medium rounded-md text-sm px-5 py-1.5 text-center me-2 mb-2">
+                     Apply
+                    </button>
                 </div>
             </div>
         </div>

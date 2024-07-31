@@ -95,9 +95,10 @@
                                
                             </div>
                         </div>
+                        
                         <AddJob/>
                     </div>
-
+                    
                 </div>
             </div>
         </div>

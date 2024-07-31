@@ -11,6 +11,8 @@ import ToastService from 'primevue/toastservice';
 import 'primeicons/primeicons.css';   
 
 import VueCookies from 'vue-cookies';
+import Aura from '@primevue/themes/aura';
+
 
 
 
@@ -19,6 +21,10 @@ createApp(App).
 use(store).
 use(router).
 use(VueCookies).
-use(PrimeVue).
+use(PrimeVue, {
+    theme: {
+        preset: Aura
+    }
+}).
 use(ToastService).
 mount('#app')

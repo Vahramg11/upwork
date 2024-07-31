@@ -124,6 +124,7 @@ export default {
       const { data } = await Axios.get("all_jobs/");
       console.log(data);
       commit("change_jobs", data);
+      
     },
   },
   mutations: {
@@ -139,7 +140,6 @@ export default {
     delete_freelancer(state, id) {
       state.freelancers.splice(
         state.freelancers.findIndex((elm) => elm.id == id),
-        1
       );
     },
 

@@ -16,20 +16,32 @@ Axios.interceptors.request.use((config) => {
 
 export default {
   namespaced: true,
-  state: {},
+  state: {
+    skills: []
+  },
   getters: {},
   actions: {
     async add_job(_, info) {
-      try{
+      try {
         const { data } = await Axios.post(`add_job/${router.currentRoute._value.params.username}/`, info)
         this.commit("admin/add_job_to_customer", data)
       }
-      catch(err){
+      catch (err) {
         console.warn(err)
       }
     },
 
-    
+    async all_skills({commit}) {
+      const { data } = await Axios.get("all_skills/")
+      commit("change_skills",data)
+      console.log(data);
+    }
+
+
   },
-  mutations: {}
+  mutations: {
+    change_skills(state, data){
+      state.skills = data
+    }
+  }
 }

@@ -289,15 +289,25 @@
 
 <template>
     <div id="app">
-      <h1>Vue.js Socket.io Chat</h1>
-      <input v-model="message" @keyup.enter="sendMessage"/>
-      <button @click="sendMessage">Send</button>
-      <ul>
-        <li v-for="msg in messages" :key="msg">{{ msg }}</li>
-      </ul>
+        <div class="w-72">
+            <div>
+                <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First
+                    name</label>
+                <input v-model="message" @keyup.enter="sendMessage" type="text" id="first_name"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="John" required />
+            </div>
+            <button @click="sendMessage"
+                class="select-none rounded-lg bg-blue-500 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                type="button">
+                send
+            </button>
+        </div>
+
     </div>
-  </template>
+</template>
   
-  <script setup>
-  
-  </script>
+<script setup>
+
+
+</script>

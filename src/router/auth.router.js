@@ -7,7 +7,6 @@ export default [
         component: SignIn,
         meta:{
             auth: true,
-            twice: true
         }
     },
     {
@@ -16,7 +15,6 @@ export default [
         component: SignUp,
         meta:{
             auth: true,
-            twice: true
 
         }
     },

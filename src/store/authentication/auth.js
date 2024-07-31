@@ -66,7 +66,8 @@ export default {
       console.log(data);
       VueCookies.remove("access", { secure: true });
       VueCookies.remove("refresh", { secure: true } );
-      router.push("/");
+      router.push({name: "sign_in"});
+
     },
 
     async get_user({ commit }) {

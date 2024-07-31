@@ -9,7 +9,7 @@ export default [
       {
         path: "",
         component: import("@/components/options/CustomerInfo.vue"),
-        name: 'defaultt'
+        name: 'defaultt',
 
       },
 

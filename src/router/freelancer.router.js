@@ -9,7 +9,6 @@ export default [
                 path: "",
                 component: import("@/components/options/FreelancerInfo.vue"),
                 name: 'defaulttt',
-
             },
             {
                 path: "customers",
@@ -22,19 +21,14 @@ export default [
                 component: () => import("@/components/options/JobOption.vue"),
                 name: "jobsss"
             },
-
-
             {
                 path: "customer-info/:customerUsername",
                 name: "freelancer-customer-info",
                 component: import("@/components/options/CustomerInfo.vue"),
-
             }
-
         ],
         meta: {
             check_user: true
         }
-
     }
 ]
