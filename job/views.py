@@ -9,23 +9,18 @@ from customer.models import Customer
 
 from .models import Job
 from .serializers import JobSerializer, AllJobsSerializer
-from rest_framework.pagination import PageNumberPagination
 
 from freelancer.models import Skills
 from freelancer.serializers import SkillsSerializer
+from .filters import JobFilter
 
 
-class JobPagination(PageNumberPagination):
-    page_size = 1
 
 
 # Create your views here.
 class JobsInfo(viewsets.ViewSet):
     # permission_classes = [IsAuthenticated]
-    pagination_class = JobPagination
 
-
-    #
     @action(method=["POST"], detail=True)
     def add_job(self, request, username):
         try:
@@ -44,7 +39,8 @@ class JobsInfo(viewsets.ViewSet):
 
     @action(method=["GET"], detail=False)
     def get_all_jobs(self, request):
-        jobs = Job.objects.all()
+        print("GETtttt", request.GET)
+        jobs = JobFilter(request.GET, Job.objects.all()).qs
         serial = AllJobsSerializer(jobs, many=True)
         return Response(serial.data, status=status.HTTP_200_OK)
 

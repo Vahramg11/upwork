@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "corsheaders",
     'drf_yasg',
     "rest_framework",
+    'django_filters',
     'django_rest_passwordreset',
     'forauth',
     "adminka",
