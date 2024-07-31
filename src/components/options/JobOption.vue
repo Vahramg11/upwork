@@ -1,6 +1,7 @@
 <template>
-    <div v-if="jobs.length" class="mx-5 sm:ml-10 ml-16">
-
+    <div v-if="jobs.length" class="mx-5 sm:ml-10 ml-16 flex flex-col items-center">
+        <FilterJob/>
+        
         <div class="m-5" v-for="elm in jobs" :key="elm.id">
             <div
                 class="group mx-2 mt-10 grid max-w-screen-md grid-cols-12 space-x-8 overflow-hidden rounded-lg border py-8 text-gray-700 shadow transition hover:shadow-lg sm:mx-auto">
@@ -55,6 +56,7 @@
 <script setup>
 import { onMounted, computed } from 'vue';
 import { useStore } from 'vuex';
+import FilterJob from "../filter/FilterJobs"
 const store = useStore()
 const user = computed(()=>store.state.auth.user)
 const jobs = computed(() => store.state.admin.jobs)

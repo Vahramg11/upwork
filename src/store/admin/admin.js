@@ -1,5 +1,6 @@
 import VueCookies from "vue-cookies";
 import axios from "axios";
+import router from "@/router";
 const Axios = axios.create({
   baseURL: "http://127.0.0.1:8000/",
 });
@@ -121,7 +122,10 @@ export default {
     // *************jobs***************
 
     async req_all_jobs({ commit }) {
-      const { data } = await Axios.get("all_jobs/");
+      console.log(router.currentRoute.value.query);
+      const { data } = await Axios.get("all_jobs/", {
+        params: router.currentRoute.value.query
+      });
       console.log(data);
       commit("change_jobs", data);
       
