@@ -34,5 +34,6 @@ class AllJobsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Job
         fields = "__all__"
+
     def get_process(self, obj):
         return obj.get_process_display()

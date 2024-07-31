@@ -30,6 +30,7 @@ def send_reset_password_email(reset_password_token):
         body=html_content,
         from_email=os.getenv('EMAIL_HOST_USER'),
         to=[reset_password_token.user.email]
+        
     )
     email_message.attach_alternative(html_content, 'text/html')
 

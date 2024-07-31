@@ -15,8 +15,9 @@ class Job(models.Model):
     process = models.CharField(max_length=10, choices=CHOICE_TYPES, default="0")
     description = models.TextField(null=True, blank=True)
     experience = models.IntegerField(default=0)
-    skills = models.ManyToManyField(Skills, related_name="jobs", null=True, blank=True)
+    skills = models.ManyToManyField(Skills, related_name="jobs")
     customer = models.ForeignKey("customer.Customer", on_delete=models.CASCADE, related_name="jobs", null=True, blank=True)
+    price = models.IntegerField()
 
 
     def __str__(self):

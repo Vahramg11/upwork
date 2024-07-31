@@ -87,7 +87,6 @@ class FreelancerStaff(viewsets.ViewSet):
             freelancer.save()
             print("hello url", freelancer.photo.url)
             return Response({'status': 'success', 'message': 'Photo uploaded successfully', 'photo_url': freelancer.photo.url}, status=status.HTTP_200_OK)
-
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
